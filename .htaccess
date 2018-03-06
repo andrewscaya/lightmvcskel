@@ -1,0 +1,3 @@
+RewriteEngine on
+RewriteCond %{REQUEST_URI} !^/lightmvctest/public/
+RewriteRule .* /lightmvctest/public/index.php [L,R=302]
