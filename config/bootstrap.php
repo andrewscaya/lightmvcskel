@@ -2,20 +2,15 @@
 
 define('BASEDIR', dirname(dirname(__FILE__)));
 
-require_once BASEDIR . DIRECTORY_SEPARATOR . 'libs' . DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR . 'ascmvc' . DIRECTORY_SEPARATOR . 'lib' . DIRECTORY_SEPARATOR . 'Ascmvc' . DIRECTORY_SEPARATOR . 'Mvc' . DIRECTORY_SEPARATOR . 'Doctrine.class.php';
-
-require_once BASEDIR . DIRECTORY_SEPARATOR . 'libs' . DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR . 'ascmvc' . DIRECTORY_SEPARATOR . 'lib' . DIRECTORY_SEPARATOR . 'Ascmvc' . DIRECTORY_SEPARATOR . 'Mvc' . DIRECTORY_SEPARATOR . 'Psr4Autoloader.class.php';
+require_once BASEDIR . DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR . 'autoload.php';
 
 // Instantiate the loader
-$loader = new Ascmvc\Mvc\Psr4Autoloader;
+//$loader = new Ascmvc\Mvc\Psr4Autoloader;
 
 // Register the autoloader
-$loader->register();
+//$loader->register();
 
 // Register the base directories for the namespace prefix
-$loader->addNamespace('Ascmvc', BASEDIR . DIRECTORY_SEPARATOR . 'libs' . DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR . 'ascmvc' . DIRECTORY_SEPARATOR . 'lib'  . DIRECTORY_SEPARATOR . 'Ascmvc');
-$loader->addNamespace('Application\Models', BASEDIR . DIRECTORY_SEPARATOR . 'models' . DIRECTORY_SEPARATOR . 'Application' . DIRECTORY_SEPARATOR . 'Models');
-$loader->addNamespace('Application\Controllers', BASEDIR . DIRECTORY_SEPARATOR . 'controllers' . DIRECTORY_SEPARATOR . 'Application' . DIRECTORY_SEPARATOR . 'Controllers');
 //$loader->addNamespace('Foo\Bar', '/path/to/packages/foo-bar/src');
 
 

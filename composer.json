@@ -1,0 +1,46 @@
+{
+  "name": "andrewscaya/lightmvctest",
+  "description": "A lightweight MVC application for educational purposes built with ASCMVC.",
+  "license": "GPL-2.0-only",
+  "keywords": [
+    "ascmvc",
+    "application",
+    "mvc",
+    "education"
+  ],
+  "homepage": "https://github.com/andrewscaya/lightmvctest",
+  "authors": [
+    {
+      "name": "Andrew Caya",
+      "email": "andrewscaya@yahoo.ca"
+    }
+  ],
+  "require": {
+    "php": "^5.5 || ^7.0",
+    "andrewscaya/ascmvc": "^1.0"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^4.8",
+    "squizlabs/php_codesniffer": "^2.3.1"
+  },
+  "autoload": {
+    "psr-4": {
+      "Application\\Models\\": "models/Application/Models",
+      "Application\\Controllers\\": "controllers/Application/Controllers"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "LightMvcTest\\": "test/"
+    }
+  },
+  "scripts": {
+    "check": [
+      "@cs",
+      "@test"
+    ],
+    "cs": "phpcs",
+    "cs-fix": "phpcbf",
+    "test": "phpunit"
+  }
+}
