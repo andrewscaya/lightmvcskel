@@ -2,14 +2,14 @@
 
 namespace Application\Controllers;
 
-use \Ascmvc\Mvc\App;
+use \Ascmvc\AbstractApp;
 use \Ascmvc\Mvc\Controller;
 
 
 class C404Controller extends Controller {
     
     
-    public static function config(App &$app)
+    public static function config(AbstractApp &$app)
     {
         IndexController::config($app);
     }

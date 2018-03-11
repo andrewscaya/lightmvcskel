@@ -12,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/andrewscaya/ascmvc.git",
-                "reference": "108dc5a1bd71067a510b5bd45aeb83664d9e5e12"
+                "reference": "576e6a0084da6390e46ed0bdcc2f9f108c209322"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/andrewscaya/ascmvc/zipball/108dc5a1bd71067a510b5bd45aeb83664d9e5e12",
-                "reference": "108dc5a1bd71067a510b5bd45aeb83664d9e5e12",
+                "url": "https://api.github.com/repos/andrewscaya/ascmvc/zipball/576e6a0084da6390e46ed0bdcc2f9f108c209322",
+                "reference": "576e6a0084da6390e46ed0bdcc2f9f108c209322",
                 "shasum": ""
             },
             "require": {
@@ -54,7 +54,7 @@
                 "framework",
                 "mvc"
             ],
-            "time": "2018-03-11T05:37:09+00:00"
+            "time": "2018-03-11T20:56:38+00:00"
         },
         {
             "name": "doctrine/annotations",

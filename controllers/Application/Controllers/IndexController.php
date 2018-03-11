@@ -2,15 +2,14 @@
 
 namespace Application\Controllers;
 
-use \Ascmvc\Mvc\App;
+use \Ascmvc\AbstractApp;
 use \Ascmvc\Mvc\Controller;
-use \Application\Models\Entity\Customers;
 
 
 class IndexController extends Controller {
     
     
-    public static function config(App &$app)
+    public static function config(AbstractApp &$app)
     {
         $baseConfig = $app->getBaseConfig();
         
