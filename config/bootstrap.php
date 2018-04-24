@@ -15,30 +15,23 @@ require_once BASEDIR . DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR . 'a
 
 
 if (PHP_SAPI !== 'cli') {
-    
     $protocol = strpos($_SERVER['SERVER_SIGNATURE'], '443') !== false ? 'https://' : 'http://';
-    
+
     $requestUriArray = explode('/', $_SERVER['PHP_SELF']);
-    
+
     if (is_array($requestUriArray)) {
-    
         $indexKey = array_search('index.php', $requestUriArray);
-    
+
         array_splice($requestUriArray, $indexKey);
-    
+
         $requestUri = implode('/', $requestUriArray);
-    
     }
-    
+
     $requestUrl = $protocol . $_SERVER['HTTP_HOST'] . $requestUri . '/';
-    
+
     define('URLBASEADDR', $requestUrl);
-    
-}
-else {
-    
-    define('URLBASEADDR', FALSE);
-    
+} else {
+    define('URLBASEADDR', false);
 }
 
 
@@ -52,7 +45,5 @@ $baseConfig = ['BASEDIR'     => BASEDIR,
 require_once BASEDIR . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'config.php';
 
 if (file_exists(BASEDIR . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'config.local.php')) {
-    
     include_once BASEDIR . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'config.local.php';
-    
 }
