@@ -43,7 +43,7 @@
                         <td>{$product.description}</td>
                         <td>{$product.image}</td>
                         <td>
-                            <a href="{$view.urlbaseaddr}{$view.urlbaseaddr}index.php/product/edit/?id={$product.id}">Modify</a>
+                            <a href="{$view.urlbaseaddr}index.php/product/edit/?id={$product.id}">Modify</a>
                         </td>
                         <td>
                             <a href="{$view.urlbaseaddr}index.php/product/delete/?id={$product.id}">Delete</a>
