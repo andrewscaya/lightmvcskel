@@ -10,14 +10,14 @@
 
 FallbackResource index.php
 
-RewriteCond %{REQUEST_URI} /lightmvctest/public/$
-RewriteRule .* /lightmvctest/public/index.php [L,R=302]
+#RewriteCond %{REQUEST_URI} /lightmvctest/public/$
+#RewriteRule .* /lightmvctest/public/index.php [L,R=302]
 
-RewriteCond %{REQUEST_URI} (?<!/lightmvctest/public/index)(\.php)
-RewriteRule .* /lightmvctest/public/index.php [L,R=302]
+#RewriteCond %{REQUEST_URI} (?<!/lightmvctest/public/index)(\.php)
+#RewriteRule .* /lightmvctest/public/index.php [L,R=302]
 
-RewriteCond %{REQUEST_URI} (^/lightmvctest/public/index)(?!\.php)
-RewriteRule .* /lightmvctest/public/index.php [L,R=302]
+#RewriteCond %{REQUEST_URI} (^/lightmvctest/public/index)(?!\.php)
+#RewriteRule .* /lightmvctest/public/index.php [L,R=302]
 
 
 # ######################################################################
