@@ -29,6 +29,10 @@ class ProductController extends Controller
         $this->serviceManager->addRegisteredService('CrudProductService', $crudService);
 
         $this->setCrudProducts($this->serviceManager->getRegisteredService('CrudProductService'));
+
+        $this->view['saved'] = 0;
+
+        $this->view['error'] = 0;
     }
 
     public function indexAction()
