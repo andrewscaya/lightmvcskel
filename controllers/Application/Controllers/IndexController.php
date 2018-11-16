@@ -44,11 +44,11 @@ class IndexController extends Controller
                 'Home' => $baseConfig['URLBASEADDR'] . 'index.php',
 
             ],
-            /*'navMenu' =>
+            'navMenu' =>
             [
                 'Home' => $baseConfig['URLBASEADDR'] . 'index.php',
 
-            ],*/
+            ],
 
         ];
 
