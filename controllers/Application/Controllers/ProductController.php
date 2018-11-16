@@ -22,7 +22,11 @@ class ProductController extends Controller
     {
         $em = $this->serviceManager->getRegisteredService('em1');
 
-        $this->serviceManager->addRegisteredService('CrudProductService', new CrudProductsService(new Products(), $em));
+        $products = new Products();
+
+        $crudService = new CrudProductsService($products, $em);
+
+        $this->serviceManager->addRegisteredService('CrudProductService', $crudService);
 
         $this->setCrudProducts($this->serviceManager->getRegisteredService('CrudProductService'));
     }
