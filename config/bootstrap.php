@@ -37,9 +37,9 @@ if (PHP_SAPI !== 'cli') {
 
 $appFolder = basename(BASEDIR);
 
-$baseConfig = ['BASEDIR'     => BASEDIR,
+$baseConfig = ['BASEDIR' => BASEDIR,
     'URLBASEADDR' => URLBASEADDR,
-    'appFolder'   => $appFolder,
+    'appFolder' => $appFolder,
 ];
 
 require_once BASEDIR . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'config.php';
