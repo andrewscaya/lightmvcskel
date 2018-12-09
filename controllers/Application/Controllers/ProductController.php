@@ -17,19 +17,28 @@ class ProductController extends Controller
     {
         IndexController::config($app);
     }
+    
+    public static function factory(AbstractApp &$app)
+    {
+		$sm = $app->getServiceManager();
+		
+        $sm[ProductController::class] = $sm->factory(function ($sm) use ($app) {
+			$em = $sm['em1'];
+			
+			$products = new \Application\Models\Entity\Products();
+
+			$crudService = new \Application\Services\CrudProductsService($products, $em);
+			
+			$controller = new \Application\Controllers\ProductController($app);
+			
+			$controller->setCrudService($crudService);
+			
+			return $controller;
+		});
+    }
 
     public function predispatch()
     {
-        $em = $this->serviceManager->getRegisteredService('em1');
-
-        $products = new Products();
-
-        $crudService = new CrudProductsService($products, $em);
-
-        $this->serviceManager->addRegisteredService('CrudProductService', $crudService);
-
-        $this->setCrudProducts($this->serviceManager->getRegisteredService('CrudProductService'));
-
         $this->view['saved'] = 0;
 
         $this->view['error'] = 0;
@@ -61,9 +70,9 @@ class ProductController extends Controller
         if (!empty($_GET)) {
             $id = (int) $_GET['id'];
 
-            return $this->getCrudProducts()->read($id);
+            return $this->getCrudService()->read($id);
         } else {
-            return $this->getCrudProducts()->read();
+            return $this->getCrudService()->read();
         }
     }
 
@@ -87,7 +96,7 @@ class ProductController extends Controller
             $productArray['description'] = (string) $_POST['description'];
             $productArray['image'] = (string) $_FILES['image']['name'];
 
-            if ($this->crudProducts->create($productArray)) {
+            if ($this->crudService->create($productArray)) {
                 $this->view['saved'] = 1;
             } else {
                 $this->view['error'] = 1;
@@ -116,7 +125,7 @@ class ProductController extends Controller
                 $productArray['image'] = (string) $_POST['imageoriginal'];
             }
 
-            if ($this->crudProducts->update($productArray)) {
+            if ($this->crudService->update($productArray)) {
                 $this->view['saved'] = 1;
             } else {
                 $this->view['error'] = 1;
@@ -148,7 +157,7 @@ class ProductController extends Controller
             // Would have to sanitize and filter the $_GET array.
             $id = (int) $_GET['id'];
 
-            if ($this->crudProducts->delete($id)) {
+            if ($this->crudService->delete($id)) {
                 $this->view['saved'] = 1;
             } else {
                 $this->view['error'] = 1;
