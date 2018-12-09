@@ -22,8 +22,9 @@
         
         <div id="pageBody">
           <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-            <h1>Welcome to {$view.appname}!</h1>
-            <p>You can <a href="{$view.urlbaseaddr}products/index">view a list of all products</a>!</p>
+            <h1>Welcome to<br />{$view.appname}!</h1>
+            <p><br /></p>
+            <h3>You can <a href="{$view.urlbaseaddr}products/index">view a list of all products</a>!</h3>
           </div>
         </div> <!-- END pageBody -->
         
