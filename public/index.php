@@ -6,13 +6,9 @@ require_once dirname(__FILE__) . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATO
 
 try {
 
-    $serviceManager = new Ascmvc\Mvc\ServiceManager();
-
-    $viewObject = Ascmvc\Mvc\Smarty::getInstance();
-
     $lMVCApp = Ascmvc\Mvc\App::getInstance();
 
-    $lMVCApp->initialize($baseConfig, $serviceManager, $viewObject);
+    $lMVCApp->initialize($baseConfig);
 
     $lMVCApp->run();
 
