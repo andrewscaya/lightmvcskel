@@ -29,7 +29,7 @@
               {if $view.error == 1}
                   <div class="alert-danger"><p>The product could not been deleted! Please try again.</p></div>
               {/if}
-              <p><br /><br /><a href="{$view.urlbaseaddr}index.php/product/index/">List products</a><br /><br /></p>
+              <p><br /><br /><a href="{$view.urlbaseaddr}products/index/">List products</a><br /><br /></p>
           </div>
         </div> <!-- END pageBody -->
         
