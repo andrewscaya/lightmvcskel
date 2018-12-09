@@ -41,12 +41,12 @@ class IndexController extends Controller
             ],
             'links' =>
             [
-                'Home' => $baseConfig['URLBASEADDR'] . 'index.php',
+                'Home' => $baseConfig['URLBASEADDR'] . 'index',
 
             ],
             'navMenu' =>
             [
-                'Home' => $baseConfig['URLBASEADDR'] . 'index.php',
+                'Home' => $baseConfig['URLBASEADDR'] . 'index',
 
             ],
 
