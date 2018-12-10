@@ -14,7 +14,7 @@ class C404Controller extends Controller
 
         $this->view['bodyjs'] = 1;
         
-        $this->view['templatefile'] = 'c404_index.html.twig';
+        $this->view['templatefile'] = 'c404_index.tpl';
         
         return $this->view;
     }
