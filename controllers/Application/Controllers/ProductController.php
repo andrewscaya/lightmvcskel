@@ -3,20 +3,15 @@
 namespace Application\Controllers;
 
 use \Ascmvc\AbstractApp;
+use \Ascmvc\FactoryInterface;
 use \Ascmvc\Mvc\Controller;
 use Application\Services\CrudProductsService;
 use Application\Services\CrudProductsServiceTrait;
 use Application\Models\Entity\Products;
 
-class ProductController extends Controller
+class ProductController extends Controller implements FactoryInterface
 {
-
     use CrudProductsServiceTrait;
-
-    public static function config(AbstractApp &$app)
-    {
-        IndexController::config($app);
-    }
     
     public static function factory(AbstractApp &$app)
     {
@@ -29,7 +24,7 @@ class ProductController extends Controller
 
 			$crudService = new \Application\Services\CrudProductsService($products, $em);
 			
-			$controller = new \Application\Controllers\ProductController($app);
+			$controller = new \Application\Controllers\ProductController($app->getBaseConfig());
 			
 			$controller->setCrudService($crudService);
 			
@@ -43,8 +38,28 @@ class ProductController extends Controller
 
         $this->view['error'] = 0;
     }
+    
+    protected function readProducts($id = null)
+    {
+        if ($id == null) {
+            return $this->crudService->read();
+        } else {
+            return $this->crudService->read($id);
+        }
+    }
 
-    public function indexAction()
+    protected function hydrateArray(Products $object)
+    {
+        $array['id'] = $object->getId();
+        $array['name'] = $object->getName();
+        $array['price'] = $object->getPrice();
+        $array['description'] = $object->getDescription();
+        $array['image'] = $object->getImage();
+
+        return $array;
+    }
+
+    public function indexAction($vars = null)
     {
         $results = $this->readProducts();
 
@@ -59,32 +74,10 @@ class ProductController extends Controller
         $this->view['bodyjs'] = 1;
 
         $this->view['results'] = $results;
-
-        $this->viewObject->assign('view', $this->view);
-
-        $this->viewObject->display('product_index.tpl');
-    }
-
-    protected function readProducts()
-    {
-        if (!empty($_GET)) {
-            $id = (int) $_GET['id'];
-
-            return $this->getCrudService()->read($id);
-        } else {
-            return $this->getCrudService()->read();
-        }
-    }
-
-    protected function hydrateArray(Products $object)
-    {
-        $array['id'] = $object->getId();
-        $array['name'] = $object->getName();
-        $array['price'] = $object->getPrice();
-        $array['description'] = $object->getDescription();
-        $array['image'] = $object->getImage();
-
-        return $array;
+        
+        $this->view['templatefile'] = 'product_index.tpl';
+        
+        return $this->view;
     }
 
     public function addAction()
@@ -104,13 +97,13 @@ class ProductController extends Controller
         }
 
         $this->view['bodyjs'] = 1;
-
-        $this->viewObject->assign('view', $this->view);
-
-        $this->viewObject->display('product_add_form.tpl');
+        
+        $this->view['templatefile'] = 'product_add_form.tpl';
+        
+        return $this->view;
     }
 
-    public function editAction()
+    public function editAction($vars)
     {
         if (!empty($_POST)) {
             // Would have to sanitize and filter the $_POST array.
@@ -131,7 +124,7 @@ class ProductController extends Controller
                 $this->view['error'] = 1;
             }
         } else {
-            $results = $this->readProducts();
+            $results = $this->readProducts($vars['id']);
 
             if (is_object($results)) {
                 $results = [$this->hydrateArray($results)];
@@ -145,27 +138,25 @@ class ProductController extends Controller
         }
 
         $this->view['bodyjs'] = 1;
-
-        $this->viewObject->assign('view', $this->view);
-
-        $this->viewObject->display('product_edit_form.tpl');
+        
+        $this->view['templatefile'] = 'product_edit_form.tpl';
+        
+        return $this->view;
     }
 
-    public function deleteAction()
+    public function deleteAction($vars)
     {
-        if (!empty($_GET)) {
-            // Would have to sanitize and filter the $_GET array.
-            $id = (int) $_GET['id'];
+		// Sanitize and filter the $_GET array.
+		$id = (int) $vars['id'];
 
-            if ($this->crudService->delete($id)) {
-                $this->view['saved'] = 1;
-            } else {
-                $this->view['error'] = 1;
-            }
-        }
-
-        $this->viewObject->assign('view', $this->view);
-
-        $this->viewObject->display('product_delete.tpl');
+		if ($this->crudService->delete($id)) {
+			$this->view['saved'] = 1;
+		} else {
+			$this->view['error'] = 1;
+		}
+		
+		$this->view['templatefile'] = 'product_delete.tpl';
+        
+        return $this->view;
     }
 }
