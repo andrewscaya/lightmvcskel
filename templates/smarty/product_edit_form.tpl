@@ -20,7 +20,7 @@
           </ul>
         </div>
         
-        <div id="pageBody">
+        <div id="pageBodyProducts">
           <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
               <h1>Edit product</h1>
               {foreach from=$view.results item=product}
