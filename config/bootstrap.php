@@ -15,6 +15,8 @@ require_once BASEDIR . DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR . 'a
 
 
 if (PHP_SAPI !== 'cli') {
+	$_SERVER['SERVER_SIGNATURE'] = isset($_SERVER['SERVER_SIGNATURE']) ? $_SERVER['SERVER_SIGNATURE'] : '80';
+	
     $protocol = strpos($_SERVER['SERVER_SIGNATURE'], '443') !== false ? 'https://' : 'http://';
 
     $requestUriArray = explode('/', $_SERVER['PHP_SELF']);
