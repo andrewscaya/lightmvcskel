@@ -2,8 +2,8 @@
 
 namespace Application\Controllers;
 
-use \Ascmvc\AbstractApp;
 use \Ascmvc\Mvc\Controller;
+
 
 class IndexController extends Controller
 {
