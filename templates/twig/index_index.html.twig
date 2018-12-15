@@ -2,9 +2,9 @@
 <html lang="en">
 
 {% if view.headjs is defined %}
-{% include 'headjs.html.twig' %}
+    {% include 'headjs.html.twig' %}
 {% else %}
-{% include 'head.html.twig' %}
+    {% include 'head.html.twig' %}
 {% endif %}
 
   <body>
@@ -14,9 +14,9 @@
       <div class="row">
         <div class="col-sm-3 col-md-2 sidebar">
           <ul class="nav nav-sidebar">
-		{% for key, navMenuLink in view.navMenu %}
-			<li><a href="{{ navMenuLink }}">{{ key }}</a></li>
-		{% endfor %}
+          {% for key, navMenuLink in view.navMenu %}
+            <li><a href="{{ navMenuLink }}">{{ key }}</a></li>
+          {% endfor %}
           </ul>
         </div>
         
@@ -32,7 +32,7 @@
     </div>
 
 {% if view.bodyjs is defined %}
-{include file='bodyjs.tpl'}
+    {% include 'bodyjs.html.twig' %}
 {% endif %}
 
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->

@@ -75,10 +75,10 @@ $baseConfig['routes'] = [
 	],
 ];
 
-$baseConfig['templateManager'] = 'Smarty';
+$baseConfig['templateManager'] = 'Twig';
 
 $baseConfig['templates'] = [
-	'templateDir' => $baseConfig['BASEDIR'] . DIRECTORY_SEPARATOR . 'templates' . DIRECTORY_SEPARATOR . 'smarty' . DIRECTORY_SEPARATOR,
+	'templateDir' => $baseConfig['BASEDIR'] . DIRECTORY_SEPARATOR . 'templates' . DIRECTORY_SEPARATOR . 'twig' . DIRECTORY_SEPARATOR,
 	'compileDir' => $baseConfig['BASEDIR'] . DIRECTORY_SEPARATOR . 'templates_c' . DIRECTORY_SEPARATOR,
 	'configDir' => $baseConfig['BASEDIR'] . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR,
 	'cacheDir' => $baseConfig['BASEDIR'] . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR,

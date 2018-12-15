@@ -2,9 +2,9 @@
 <html lang="en">
 
 {if isset($view.headjs)}
-{include file='headjs.tpl'}
+    {include file='headjs.tpl'}
 {else}
-{include file='head.tpl'}
+    {include file='head.tpl'}
 {/if}
 
   <body>

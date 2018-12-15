@@ -16,7 +16,7 @@ class C405Controller extends Controller
         
         $this->view['bodyjs'] = 1;
         
-        $this->view['templatefile'] = 'c405_index.tpl';
+        $this->view['templatefile'] = 'c405_index.html.twig';
         
         return $this->view;
     }

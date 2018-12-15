@@ -11,7 +11,7 @@ class IndexController extends Controller
     {
         $this->view['bodyjs'] = 1;
         
-        $this->view['templatefile'] = 'index_index.tpl';
+        $this->view['templatefile'] = 'index_index.html.twig';
         
         return $this->view;
     }

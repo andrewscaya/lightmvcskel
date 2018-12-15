@@ -75,7 +75,7 @@ class ProductController extends Controller implements FactoryInterface
 
         $this->view['results'] = $results;
         
-        $this->view['templatefile'] = 'product_index.tpl';
+        $this->view['templatefile'] = 'product_index.html.twig';
         
         return $this->view;
     }
@@ -98,7 +98,7 @@ class ProductController extends Controller implements FactoryInterface
 
         $this->view['bodyjs'] = 1;
         
-        $this->view['templatefile'] = 'product_add_form.tpl';
+        $this->view['templatefile'] = 'product_add_form.html.twig';
         
         return $this->view;
     }
@@ -139,7 +139,7 @@ class ProductController extends Controller implements FactoryInterface
 
         $this->view['bodyjs'] = 1;
         
-        $this->view['templatefile'] = 'product_edit_form.tpl';
+        $this->view['templatefile'] = 'product_edit_form.html.twig';
         
         return $this->view;
     }
@@ -155,7 +155,7 @@ class ProductController extends Controller implements FactoryInterface
 			$this->view['error'] = 1;
 		}
 		
-		$this->view['templatefile'] = 'product_delete.tpl';
+		$this->view['templatefile'] = 'product_delete.html.twig';
         
         return $this->view;
     }
