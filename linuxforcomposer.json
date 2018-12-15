@@ -1,0 +1,22 @@
+{
+    "name": "linuxforphp/linuxforcomposer",
+    "description": "A Composer interface to run 'Linux for PHP' Docker containers.",
+    "php-versions": [
+        "custom-lighmvcskel-7.2.10"
+    ],
+    "modes": {
+        "mode2": "detached",
+        "mode2": "interactive",
+        "mode3": "tty"
+    },
+    "ports": {
+        "port1": [
+            "8181:80"
+        ]
+    },
+    "volumes": {
+        "volume1": "${PWD}/:/srv/lightmvcskel"
+    },
+    "script": "'lfphp --mysql --phpfpm --apache'",
+    "thread-safe": "false"
+}

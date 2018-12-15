@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e319cfd3649d9cf48327c23848009774",
+    "content-hash": "06f5738a26c6beaa5f0df4c712af7c3f",
     "packages": [
         {
             "name": "andrewscaya/ascmvc",
@@ -1223,6 +1223,48 @@
         }
     ],
     "packages-dev": [
+        {
+            "name": "linuxforphp/linuxforcomposer",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/linuxforphp/linuxforcomposer.git",
+                "reference": "d67d9b34f6e75f76b7f915a0e5f939d266fdded7"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/linuxforphp/linuxforcomposer/zipball/d67d9b34f6e75f76b7f915a0e5f939d266fdded7",
+                "reference": "d67d9b34f6e75f76b7f915a0e5f939d266fdded7",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^5.6 || ^7.0"
+            },
+            "bin": [
+                "bin/linuxforcomposer.phar"
+            ],
+            "type": "library",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-2.0-only"
+            ],
+            "authors": [
+                {
+                    "name": "Foreach Code Factory",
+                    "email": "lfphp@asclinux.net"
+                }
+            ],
+            "description": "Composer package that helps to easily configure and run Linux for PHP containers for any PHP project.",
+            "homepage": "https://linuxforphp.net",
+            "keywords": [
+                "Linux for Composer",
+                "Linux for PHP",
+                "composer",
+                "docker",
+                "php"
+            ],
+            "time": "2018-11-08T05:52:48+00:00"
+        },
         {
             "name": "phpdocumentor/reflection-common",
             "version": "1.0.1",
