@@ -2,29 +2,29 @@
 
 namespace Application\Controllers;
 
-use \Ascmvc\AbstractApp;
-use \Ascmvc\FactoryInterface;
 use \Ascmvc\Mvc\Controller;
+use Ascmvc\FactoryInterface;
+use \Ascmvc\AbstractEventManager;
+use Application\Models\Entity\Products;
 use Application\Services\CrudProductsService;
 use Application\Services\CrudProductsServiceTrait;
-use Application\Models\Entity\Products;
+use Pimple\Container;
+
 
 class ProductController extends Controller implements FactoryInterface
 {
     use CrudProductsServiceTrait;
     
-    public static function factory(AbstractApp &$app)
+    public static function factory(array &$baseConfig, &$viewObject, Container &$serviceManager, AbstractEventManager &$eventManager)
     {
-		$sm = $app->getServiceManager();
-		
-        $sm[ProductController::class] = $sm->factory(function ($sm) use ($app) {
-			$em = $sm['em1'];
+        $serviceManager[ProductController::class] = $serviceManager->factory(function ($serviceManager) use ($baseConfig) {
+			$em = $serviceManager['em1'];
 			
-			$products = new \Application\Models\Entity\Products();
+			$products = new Products();
 
-			$crudService = new \Application\Services\CrudProductsService($products, $em);
+			$crudService = new CrudProductsService($products, $em);
 			
-			$controller = new \Application\Controllers\ProductController($app->getBaseConfig());
+			$controller = new ProductController($baseConfig);
 			
 			$controller->setCrudService($crudService);
 			
