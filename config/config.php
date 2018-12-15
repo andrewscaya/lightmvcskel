@@ -1,5 +1,7 @@
 <?php
 
+$baseConfig['env'] = 'production'; // 'development' or 'production'
+
 $baseConfig['appName'] = 'The LightMVC Framework Skeleton Application';
 
 $baseConfig['view'] = [
@@ -82,5 +84,4 @@ $baseConfig['templates'] = [
 	'compileDir' => $baseConfig['BASEDIR'] . DIRECTORY_SEPARATOR . 'templates_c' . DIRECTORY_SEPARATOR,
 	'configDir' => $baseConfig['BASEDIR'] . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR,
 	'cacheDir' => $baseConfig['BASEDIR'] . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR,
-	'caching' => false,
 ];
