@@ -2,18 +2,26 @@
 
 ob_start();
 
-require_once dirname(__FILE__) . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'bootstrap.php';
+define('BASEDIR', dirname(dirname(__FILE__)));
+
+require_once BASEDIR . DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR . 'autoload.php';
+
+// Instantiate the loader
+//$loader = new Ascmvc\Mvc\Psr4Autoloader;
+
+// Register the autoloader
+//$loader->register();
+
+// Register the base directories for the namespace prefix
+//$loader->addNamespace('Foo\Bar', '/path/to/packages/foo-bar/src');
 
 try {
 
-    $lMVCApp = Ascmvc\Mvc\App::getInstance();
+    $app = Ascmvc\Mvc\App::getInstance();
+    $baseConfig = $app->boot();
+    $app->initialize($baseConfig)->run();
 
-    $lMVCApp->initialize($baseConfig);
-
-    $lMVCApp->run();
-
-}
-catch (\Exception $e) {
+} catch (\Exception $e) {
     
     $logFile = BASEDIR . DIRECTORY_SEPARATOR . 'logs' . DIRECTORY_SEPARATOR . 'log.txt';
     
