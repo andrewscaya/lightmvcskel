@@ -2,7 +2,7 @@
     "name": "linuxforphp\/linuxforcomposer",
     "description": "A Composer interface to run 'Linux for PHP' Docker containers.",
     "php-versions": [
-        "custom-lightmvc-7.2.10"
+        "custom-lighmvcskel-7.2.10"
     ],
     "modes": {
         "mode1": "detached",
