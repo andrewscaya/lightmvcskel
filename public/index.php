@@ -36,8 +36,6 @@ try {
     
 }
 
-ob_flush();
-
 flush();
 
 exit;

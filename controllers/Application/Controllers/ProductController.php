@@ -2,9 +2,10 @@
 
 namespace Application\Controllers;
 
-use \Ascmvc\Mvc\Controller;
+use Ascmvc\Mvc\AscmvcEvent;
+use Ascmvc\Mvc\Controller;
 use Ascmvc\FactoryInterface;
-use \Ascmvc\AbstractEventManager;
+use Ascmvc\AbstractEventManager;
 use Application\Models\Entity\Products;
 use Application\Services\CrudProductsService;
 use Application\Services\CrudProductsServiceTrait;
@@ -32,7 +33,7 @@ class ProductController extends Controller implements FactoryInterface
 		});
     }
 
-    public function predispatch()
+    public function onDispatch(AscmvcEvent $event)
     {
         $this->view['saved'] = 0;
 
