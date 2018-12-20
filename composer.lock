@@ -12,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/andrewscaya/ascmvc.git",
-                "reference": "5851308a71093e3d645c7b3674a491b3ede0f0f3"
+                "reference": "751058a40b6fa13096f6a6fa1e904811b30e19f7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/andrewscaya/ascmvc/zipball/5851308a71093e3d645c7b3674a491b3ede0f0f3",
-                "reference": "5851308a71093e3d645c7b3674a491b3ede0f0f3",
+                "url": "https://api.github.com/repos/andrewscaya/ascmvc/zipball/751058a40b6fa13096f6a6fa1e904811b30e19f7",
+                "reference": "751058a40b6fa13096f6a6fa1e904811b30e19f7",
                 "shasum": ""
             },
             "require": {
@@ -60,7 +60,7 @@
                 "framework",
                 "mvc"
             ],
-            "time": "2018-12-20T05:17:29+00:00"
+            "time": "2018-12-20T20:48:30+00:00"
         },
         {
             "name": "container-interop/container-interop",
