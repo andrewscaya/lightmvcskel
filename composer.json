@@ -16,7 +16,7 @@
     }
   ],
   "require": {
-    "php": "^5.6 || ^7.0",
+    "php": "^7.0",
     "andrewscaya/ascmvc": "dev-2.0.0-dev"
   },
   "require-dev": {
