@@ -83,14 +83,14 @@ class ProductController extends Controller implements FactoryInterface
         return $this->view;
     }
 
-    public function addAction()
+    public function addAction($vars)
     {
-        if (!empty($_POST)) {
+        if (!empty($vars['post'])) {
             // Would have to sanitize and filter the $_POST array.
-            $productArray['name'] = (string) $_POST['name'];
-            $productArray['price'] = (string) $_POST['price'];
-            $productArray['description'] = (string) $_POST['description'];
-            $productArray['image'] = (string) $_FILES['image']['name'];
+            $productArray['name'] = (string) $vars['post']['name'];
+            $productArray['price'] = (string) $vars['post']['price'];
+            $productArray['description'] = (string) $vars['post']['description'];
+            $productArray['image'] = (string) $vars['files']['image']->getClientFilename();
 
             if ($this->crudService->create($productArray)) {
                 $this->view['saved'] = 1;
@@ -108,17 +108,17 @@ class ProductController extends Controller implements FactoryInterface
 
     public function editAction($vars)
     {
-        if (!empty($_POST)) {
+        if (!empty($vars['post'])) {
             // Would have to sanitize and filter the $_POST array.
-            $productArray['id'] = (string) $_POST['id'];
-            $productArray['name'] = (string) $_POST['name'];
-            $productArray['price'] = (string) $_POST['price'];
-            $productArray['description'] = (string) $_POST['description'];
+            $productArray['id'] = (string) $vars['post']['id'];
+            $productArray['name'] = (string) $vars['post']['name'];
+            $productArray['price'] = (string) $vars['post']['price'];
+            $productArray['description'] = (string) $vars['post']['description'];
 
-            if (!empty($_FILES['image']['name'])) {
-                $productArray['image'] = (string) $_FILES['image']['name'];
+            if (!empty($vars['files']['image']->getClientFilename())) {
+                $productArray['image'] = (string) $vars['files']['image']->getClientFilename();
             } else {
-                $productArray['image'] = (string) $_POST['imageoriginal'];
+                $productArray['image'] = (string) $vars['post']['imageoriginal'];
             }
 
             if ($this->crudService->update($productArray)) {
@@ -127,7 +127,7 @@ class ProductController extends Controller implements FactoryInterface
                 $this->view['error'] = 1;
             }
         } else {
-            $results = $this->readProducts($vars['id']);
+            $results = $this->readProducts($vars['get']['id']);
 
             if (is_object($results)) {
                 $results = [$this->hydrateArray($results)];
@@ -150,7 +150,7 @@ class ProductController extends Controller implements FactoryInterface
     public function deleteAction($vars)
     {
 		// Sanitize and filter the $_GET array.
-		$id = (int) $vars['id'];
+		$id = (int) $vars['get']['id'];
 
 		if ($this->crudService->delete($id)) {
 			$this->view['saved'] = 1;
