@@ -36,21 +36,27 @@
                   </tr>
                 </thead>
                 <tbody>
-              {% for key, product in view.results %}
-                  <tr>
-                      <td>{{ product.id }}</td>
-                      <td>{{ product.name }}</td>
-                      <td>{{ product.price }}</td>
-                      <td>{{ product.description }}</td>
-                      <td>{{ product.image }}</td>
-                      <td>
-                          <a href="{{ view.urlbaseaddr }}products/edit/{{ product.id }}">Modify</a>
-                      </td>
-                      <td>
-                          <a href="{{ view.urlbaseaddr }}products/delete/{{ product.id }}">Delete</a>
-                      </td>
-                  </tr>
-              {% endfor %}
+                {% if view.results.nodata is defined %}
+                    <tr>
+                        <td>{{ view.results.nodata }}</td>
+                    </tr>
+                {% else %}
+                    {% for key, product in view.results %}
+                      <tr>
+                          <td>{{ product.id }}</td>
+                          <td>{{ product.name }}</td>
+                          <td>{{ product.price }}</td>
+                          <td>{{ product.description }}</td>
+                          <td>{{ product.image }}</td>
+                          <td>
+                              <a href="{{ view.urlbaseaddr }}products/edit/{{ product.id }}">Modify</a>
+                          </td>
+                          <td>
+                              <a href="{{ view.urlbaseaddr }}products/delete/{{ product.id }}">Delete</a>
+                          </td>
+                      </tr>
+                    {% endfor %}
+                {% endif %}
                 </tbody>
               </table>
             </div>

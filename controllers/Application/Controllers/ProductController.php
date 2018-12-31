@@ -66,10 +66,12 @@ class ProductController extends Controller implements FactoryInterface
 
         if (is_object($results)) {
             $results = [$this->hydrateArray($results)];
-        } else {
+        } elseif (is_array($results)) {
             for ($i = 0; $i < count($results); $i++) {
                 $results[$i] = $this->hydrateArray($results[$i]);
             }
+        } else {
+            $results['nodata'] = 'No results';
         }
 
         $this->view['bodyjs'] = 1;
