@@ -9,6 +9,7 @@ use Ascmvc\FactoryInterface;
 use Ascmvc\Mvc\Controller;
 use Ascmvc\Mvc\AscmvcEvent;
 use Pimple\Container;
+use Zend\Diactoros\Response;
 use Zend\EventManager\EventManager;
 
 
@@ -19,19 +20,37 @@ class ProductController extends Controller implements FactoryInterface
     public static function factory(array &$baseConfig, &$viewObject, Container &$serviceManager, EventManager &$eventManager)
     {
         $serviceManager[ProductController::class] = $serviceManager->factory(function ($serviceManager) use ($baseConfig) {
-			$em = $serviceManager['em1'];
-			
-			$products = new Products();
+            $em = $serviceManager['em1'];
 
-			$crudService = new CrudProductsService($products, $em);
-			
-			$controller = new ProductController($baseConfig);
-			
-			$controller->setCrudService($crudService);
-			
-			return $controller;
-		});
+            $products = new Products();
+
+            $crudService = new CrudProductsService($products, $em);
+
+            $controller = new ProductController($baseConfig);
+
+            $controller->setCrudService($crudService);
+
+            return $controller;
+        });
     }
+
+    /*public function onDispatch(AscmvcEvent $event)
+    {
+        $array = [
+            'firstname' => 'Andrew',
+            'lastname' => 'Caya',
+            'age' => 42,
+        ];
+
+        $response = new Response();
+        $response->getBody()->write(json_encode($array));
+        $response = $response
+            ->withStatus(200)
+            ->withHeader('Content-Type', 'application/json')
+            ->withAddedHeader('X-Custom-Header', 'it works');
+
+        return $response;
+    }*/
 
     public function onDispatch(AscmvcEvent $event)
     {
