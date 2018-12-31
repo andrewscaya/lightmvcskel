@@ -23,3 +23,5 @@ $baseConfig['doctrine']['ORM']['em1'] = [
 require_once 'routes.config.php';
 
 require_once 'view.config.php';
+
+//require_once 'middleware.config.php';
