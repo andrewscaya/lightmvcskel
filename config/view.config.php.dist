@@ -36,12 +36,13 @@ $baseConfig['view'] = [
             //"<script>\n\t\tfunction getPage(page) {\n\n\t\t\tvar url = page;\n\n\t\t\tjq( \"#pageBody\" ).load( url );\n\n\t\t}\n\t</script>\n",
 
         ],
+    'bodyjs' => 0,
     'links' =>
         [
             'Home' => $baseConfig['URLBASEADDR'] . 'index',
 
         ],
-    'navMenu' =>
+    'navmenu' =>
         [
             'Home' => $baseConfig['URLBASEADDR'] . 'index',
 
