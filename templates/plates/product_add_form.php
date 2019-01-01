@@ -1,22 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
 
-{if isset($view.headjs)}
-{include file='headjs.tpl'}
-{else}
-{include file='head.tpl'}
-{/if}
+<?php if (isset($view['headjs'])): ?>
+    <?=$this->section('headjs', $this->fetch('headjs', ['view' => $view]))?>
+<?php else: ?>
+    <?=$this->section('head', $this->fetch('head', ['view' => $view]))?>
+<?php endif ?>
 
   <body>
-  {include file='navbar.tpl'}
+  <?=$this->section('navbar', $this->fetch('navbar', ['view' => $view]))?>
 
     <div class="container">
       <div class="row">
         <div class="col-sm-3 col-md-2 sidebar">
           <ul class="nav nav-sidebar">
-          {foreach from=$view.navMenu key=navMenuEntry item=navMenuLink}
-            <li><a href="{$navMenuLink}">{$navMenuEntry}</a></li>
-          {/foreach}
+          <?php foreach($view['navmenu'] as $key => $value): ?>
+              <li><?php echo '<a href="' . $value . '">' . $key . '</a>' ?></li>
+          <?php endforeach; ?>
           </ul>
         </div>
         
@@ -34,25 +34,25 @@
                   <input type="file" name="image" id="image" /><br />
                   <input type="submit" name="submit" /><br />
               </form>
-              {if $view.saved == 1}
+              <?php if ($view['saved'] === 1): ?>
                   <div class="alert-success"><p>The product has been saved!</p></div>
-              {/if}
-              {if $view.error == 1}
+              <?php endif ?>
+              <?php if ($view['error'] === 1): ?>
                   <div class="alert-danger"><p>The product has not been created! Please try again.</p></div>
-              {/if}
-              <p><br /><br /><a href="{$view.urlbaseaddr}products/index/">List products</a><br /><br /></p>
+              <?php endif ?>
+              <p><br /><br /><a href="<?php echo $view['urlbaseaddr'] ?>products/index/">List products</a><br /><br /></p>
           </div>
         </div> <!-- END pageBody -->
         
       </div>
     </div>
 
-{if $view.bodyjs == 1}
-    {include file='bodyjs.tpl'}
-{/if}
+  <?php if ($view['bodyjs'] === 1): ?>
+      <?=$this->section('bodyjs', $this->fetch('bodyjs', ['view' => $view]))?>
+  <?php endif ?>
 
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <script src="{$view.urlbaseaddr}js/ie10-viewport-bug-workaround.js"></script>
+    <script src="<?php echo $view['urlbaseaddr'] ?>js/ie10-viewport-bug-workaround.js"></script>
     
   </body>
 </html>

@@ -19,9 +19,9 @@
                        <!-- <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Main Menu <span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                        {foreach from=$view.navMenu key=navMenuEntry item=navMenuLink}
+                        {foreach from=$view.navmenu key=navmenuentry item=navmenulink}
                             <li class="dropdown-header">Menu</li>
-                            <li><a href="{$navMenuLink}">{$navMenuEntry}</a></li>
+                            <li><a href="{$navmenulink}">{$navmenuentry}</a></li>
                             <li role="separator" class="divider"></li>
                         {/foreach}
                         </ul>

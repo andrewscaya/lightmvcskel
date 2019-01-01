@@ -7,7 +7,7 @@
     <meta name="author" content="{$view.author}">
     <link rel="icon" href="{$view.favicon}">
     
-    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <link rel="apple-touch-icon" href="{$view.urlbaseaddr}apple-touch-icon.png">
 
     <title>{$view.title}</title>
 
@@ -27,8 +27,8 @@
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
-      <script src="js/html5shiv.min.js"></script>
-      <script src="js/respond.min.js"></script>
+      <script src="{$view.urlbaseaddr}js/html5shiv.min.js"></script>
+      <script src="{$view.urlbaseaddr}js/respond.min.js"></script>
     <![endif]-->
     
   </head>
