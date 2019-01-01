@@ -145,19 +145,19 @@ class ProductController extends Controller implements FactoryInterface
             } else {
                 $this->view['error'] = 1;
             }
-        } else {
-            $results = $this->readProducts($vars['get']['id']);
-
-            if (is_object($results)) {
-                $results = [$this->hydrateArray($results)];
-            } else {
-                for ($i = 0; $i < count($results); $i++) {
-                    $results[$i] = $this->hydrateArray($results[$i]);
-                }
-            }
-
-            $this->view['results'] = $results;
         }
+
+        $results = $this->readProducts($vars['get']['id']);
+
+        if (is_object($results)) {
+            $results = [$this->hydrateArray($results)];
+        } else {
+            for ($i = 0; $i < count($results); $i++) {
+                $results[$i] = $this->hydrateArray($results[$i]);
+            }
+        }
+
+        $this->view['results'] = $results;
 
         $this->view['bodyjs'] = 1;
         
