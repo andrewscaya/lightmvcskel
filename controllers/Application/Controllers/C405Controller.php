@@ -14,7 +14,7 @@ class C405Controller extends Controller
         
         $this->view['bodyjs'] = 1;
         
-        $this->view['templatefile'] = 'c405_index.html.twig';
+        $this->view['templatefile'] = 'c405_index';
 
         $this->view['statuscode'] = 405;
         

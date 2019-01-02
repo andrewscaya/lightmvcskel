@@ -17,7 +17,7 @@ class C404Controller extends Controller implements MiddlewareInterface
     {
         $this->view['bodyjs'] = 1;
         
-        $this->view['templatefile'] = 'c404_index.html.twig';
+        $this->view['templatefile'] = 'c404_index';
 
         $this->view['statuscode'] = 404;
         
