@@ -12,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/andrewscaya/ascmvc.git",
-                "reference": "dc1457614cf7c589b0c3c5f6369af6c1e9480b46"
+                "reference": "6d981e13b09ad0ac6ceed6e74530d1c9675dc9fe"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/andrewscaya/ascmvc/zipball/dc1457614cf7c589b0c3c5f6369af6c1e9480b46",
-                "reference": "dc1457614cf7c589b0c3c5f6369af6c1e9480b46",
+                "url": "https://api.github.com/repos/andrewscaya/ascmvc/zipball/6d981e13b09ad0ac6ceed6e74530d1c9675dc9fe",
+                "reference": "6d981e13b09ad0ac6ceed6e74530d1c9675dc9fe",
                 "shasum": ""
             },
             "require": {
@@ -29,16 +29,16 @@
                 "nikic/fast-route": "1.3.0",
                 "php": "^7.0",
                 "pimple/pimple": "3.2.3",
-                "smarty/smarty": "3.1.27",
-                "twig/twig": "2.5.0",
+                "smarty/smarty": "3.1.33",
+                "twig/twig": "2.6.0",
                 "zendframework/zend-diactoros": "2.1.0",
                 "zendframework/zend-eventmanager": "3.2.1",
                 "zendframework/zend-stdlib": "3.2.1",
                 "zendframework/zend-stratigility": "3.0.2"
             },
             "require-dev": {
-                "phpunit/phpunit": "^4.8",
-                "squizlabs/php_codesniffer": "^2.3.1"
+                "phpunit/phpunit": "6.5.13",
+                "squizlabs/php_codesniffer": "3.4.0"
             },
             "type": "library",
             "autoload": {
@@ -64,7 +64,7 @@
                 "framework",
                 "mvc"
             ],
-            "time": "2019-01-01T08:30:28+00:00"
+            "time": "2019-01-03T01:03:33+00:00"
         },
         {
             "name": "container-interop/container-interop",
@@ -1271,16 +1271,16 @@
         },
         {
             "name": "smarty/smarty",
-            "version": "v3.1.27",
+            "version": "v3.1.33",
             "source": {
                 "type": "git",
                 "url": "https://github.com/smarty-php/smarty.git",
-                "reference": "4537d8aae6c4a26f5439bc3a05d3437d25c2c4d2"
+                "reference": "dd55b23121e55a3b4f1af90a707a6c4e5969530f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/smarty-php/smarty/zipball/4537d8aae6c4a26f5439bc3a05d3437d25c2c4d2",
-                "reference": "4537d8aae6c4a26f5439bc3a05d3437d25c2c4d2",
+                "url": "https://api.github.com/repos/smarty-php/smarty/zipball/dd55b23121e55a3b4f1af90a707a6c4e5969530f",
+                "reference": "dd55b23121e55a3b4f1af90a707a6c4e5969530f",
                 "shasum": ""
             },
             "require": {
@@ -1293,10 +1293,8 @@
                 }
             },
             "autoload": {
-                "classmap": [
-                    "libs/Smarty.class.php",
-                    "libs/SmartyBC.class.php",
-                    "libs/sysplugins/"
+                "files": [
+                    "libs/bootstrap.php"
                 ]
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -1322,7 +1320,7 @@
             "keywords": [
                 "templating"
             ],
-            "time": "2015-06-18T00:55:59+00:00"
+            "time": "2018-09-12T20:54:16+00:00"
         },
         {
             "name": "symfony/console",
@@ -1568,32 +1566,32 @@
         },
         {
             "name": "twig/twig",
-            "version": "v2.5.0",
+            "version": "v2.6.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/twigphp/Twig.git",
-                "reference": "6a5f676b77a90823c2d4eaf76137b771adf31323"
+                "reference": "a11dd39f5b6589e14f0ff3b36675d06047c589b1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twigphp/Twig/zipball/6a5f676b77a90823c2d4eaf76137b771adf31323",
-                "reference": "6a5f676b77a90823c2d4eaf76137b771adf31323",
+                "url": "https://api.github.com/repos/twigphp/Twig/zipball/a11dd39f5b6589e14f0ff3b36675d06047c589b1",
+                "reference": "a11dd39f5b6589e14f0ff3b36675d06047c589b1",
                 "shasum": ""
             },
             "require": {
                 "php": "^7.0",
                 "symfony/polyfill-ctype": "^1.8",
-                "symfony/polyfill-mbstring": "~1.0"
+                "symfony/polyfill-mbstring": "^1.3"
             },
             "require-dev": {
                 "psr/container": "^1.0",
                 "symfony/debug": "^2.7",
-                "symfony/phpunit-bridge": "^3.3"
+                "symfony/phpunit-bridge": "^3.4.19|^4.1.8"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.5-dev"
+                    "dev-master": "2.6-dev"
                 }
             },
             "autoload": {
@@ -1631,7 +1629,7 @@
             "keywords": [
                 "templating"
             ],
-            "time": "2018-07-13T07:18:09+00:00"
+            "time": "2018-12-16T10:36:48+00:00"
         },
         {
             "name": "zendframework/zend-diactoros",
