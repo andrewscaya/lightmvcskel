@@ -5,19 +5,17 @@ namespace Application\Controllers;
 use Application\Models\Entity\Products;
 use Application\Services\CrudProductsService;
 use Application\Services\CrudProductsServiceTrait;
-use Ascmvc\FactoryInterface;
+use Ascmvc\ControllerFactoryInterface;
+use Ascmvc\Mvc\AscmvcEventManager;
 use Ascmvc\Mvc\Controller;
 use Ascmvc\Mvc\AscmvcEvent;
 use Pimple\Container;
-use Zend\Diactoros\Response;
-use Zend\EventManager\EventManager;
 
-
-class ProductController extends Controller implements FactoryInterface
+class ProductController extends Controller implements ControllerFactoryInterface
 {
     use CrudProductsServiceTrait;
     
-    public static function factory(array &$baseConfig, &$viewObject, Container &$serviceManager, EventManager &$eventManager)
+    public static function factory(array &$baseConfig, &$viewObject, Container &$serviceManager, AscmvcEventManager &$eventManager)
     {
         $serviceManager[ProductController::class] = $serviceManager->factory(function ($serviceManager) use ($baseConfig) {
             $em = $serviceManager['em1'];
