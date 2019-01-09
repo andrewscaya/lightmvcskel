@@ -45,7 +45,7 @@
               {if $view.error == 1}
                   <div class="alert-danger"><p>The product has not been saved! Please try again.</p></div>
               {/if}
-              <p><br /><br /><a href="{$view.urlbaseaddr}products/index/">List products</a><br /><br /></p>
+              <p><br /><br /><a href="{$view.urlbaseaddr}products/index">List products</a><br /><br /></p>
           </div>
         </div> <!-- END pageBody -->
         

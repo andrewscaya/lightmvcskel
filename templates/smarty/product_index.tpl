@@ -52,7 +52,7 @@
                   {/foreach}
               </table>
             </div>
-            <p><a href="{$view.urlbaseaddr}products/add/">Add new product</a></p>
+            <p><a href="{$view.urlbaseaddr}products/add">Add new product</a></p>
           </div>
         </div> <!-- END pageBody -->
         

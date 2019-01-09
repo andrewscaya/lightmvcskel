@@ -40,7 +40,7 @@
               <?php if ($view['error'] === 1): ?>
                   <div class="alert-danger"><p>The product has not been created! Please try again.</p></div>
               <?php endif ?>
-              <p><br /><br /><a href="<?php echo $view['urlbaseaddr'] ?>products/index/">List products</a><br /><br /></p>
+              <p><br /><br /><a href="<?php echo $view['urlbaseaddr'] ?>products/index">List products</a><br /><br /></p>
           </div>
         </div> <!-- END pageBody -->
         

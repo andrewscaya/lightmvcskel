@@ -52,7 +52,7 @@
                   <?php endforeach; ?>
               </table>
             </div>
-            <p><a href="<?php echo $view['urlbaseaddr'] ?>products/add/">Add new product</a></p>
+            <p><a href="<?php echo $view['urlbaseaddr'] ?>products/add">Add new product</a></p>
           </div>
         </div> <!-- END pageBody -->
         
