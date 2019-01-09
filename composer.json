@@ -26,6 +26,7 @@
   },
   "autoload": {
     "psr-4": {
+      "Application\\Middleware\\": "controllers/Application/Middleware",
       "Application\\Controllers\\": "controllers/Application/Controllers",
       "Application\\Models\\": "models/Application/Models",
       "Application\\Services\\": "controllers/Application/Services"

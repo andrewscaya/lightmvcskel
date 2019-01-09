@@ -4,10 +4,8 @@ namespace Application\Controllers;
 
 use Ascmvc\Mvc\Controller;
 
-
 class IndexController extends Controller
 {
-
     public function indexAction($vars = null)
     {
         $this->view['bodyjs'] = 1;
@@ -16,5 +14,4 @@ class IndexController extends Controller
         
         return $this->view;
     }
-
 }

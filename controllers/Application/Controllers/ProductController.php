@@ -5,13 +5,13 @@ namespace Application\Controllers;
 use Application\Models\Entity\Products;
 use Application\Services\CrudProductsService;
 use Application\Services\CrudProductsServiceTrait;
-use Ascmvc\ControllerFactoryInterface;
+use Ascmvc\AscmvcControllerFactoryInterface;
 use Ascmvc\Mvc\AscmvcEventManager;
 use Ascmvc\Mvc\Controller;
 use Ascmvc\Mvc\AscmvcEvent;
 use Pimple\Container;
 
-class ProductController extends Controller implements ControllerFactoryInterface
+class ProductController extends Controller implements AscmvcControllerFactoryInterface
 {
     use CrudProductsServiceTrait;
     

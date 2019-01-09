@@ -17,5 +17,5 @@ $baseConfig['middleware'] = [
 
         return $response;
     },
-    '/baz' => \Application\Controllers\C404Controller::class
+    '/baz' => \Application\Middleware\SessionMiddleware::class
 ];

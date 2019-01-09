@@ -4,10 +4,8 @@ namespace Application\Controllers;
 
 use Ascmvc\Mvc\Controller;
 
-
 class C405Controller extends Controller
 {
-	
     public function indexAction($vars = null)
     {
         $this->view['vars'] = $vars;
@@ -20,5 +18,4 @@ class C405Controller extends Controller
         
         return $this->view;
     }
-    
 }
