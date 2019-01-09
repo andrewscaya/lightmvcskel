@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 ob_start();
 
 define('BASEDIR', dirname(dirname(__FILE__)));
