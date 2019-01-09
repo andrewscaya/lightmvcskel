@@ -17,5 +17,9 @@ $baseConfig['middleware'] = [
 
         return $response;
     },
-    '/baz' => \Application\Middleware\SessionMiddleware::class
+    '/admin' => [
+        \Application\Middleware\SessionMiddleware::class,
+        \Application\Middleware\ExampleMiddleware::class,
+    ],
+    '/baz' => \Application\Middleware\ExampleMiddleware::class,
 ];
