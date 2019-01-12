@@ -24,15 +24,15 @@
     "squizlabs/php_codesniffer": "^2.3.1",
     "linuxforphp/linuxforcomposer": "^1.0"
   },
-  "autoload": {
-    "psr-4": {
-      "Application\\Middleware\\": "controllers/Application/Middleware",
-      "Application\\Controllers\\": "controllers/Application/Controllers",
-      "Application\\Models\\": "models/Application/Models",
-      "Application\\Services\\": "controllers/Application/Services",
-      "Specialmodule\\Controllers\\": "controllers/Specialmodule/Controllers"
-    }
-  },
+    "autoload": {
+      "psr-4": {
+        "Application\\Models\\": "models/Application/Models",
+        "Application\\Middleware\\": "middleware/Application/Middleware",
+        "Application\\Controllers\\": "controllers/Application/Controllers",
+        "Application\\Services\\": "controllers/Application/Services",
+        "Specialmodule\\Controllers\\": "controllers/Specialmodule/Controllers"
+      }
+    },
   "autoload-dev": {
     "psr-4": {
       "LightMvcTest\\": "test/"
