@@ -1,50 +1,56 @@
 {
-  "name": "andrewscaya/lightmvcskel",
-  "description": "A lightweight MVC application for educational purposes built with ASCMVC.",
-  "license": "GPL-2.0-only",
-  "keywords": [
-    "ascmvc",
-    "application",
-    "mvc",
-    "education"
-  ],
-  "homepage": "https://github.com/andrewscaya/lightmvcskel",
-  "authors": [
-    {
-      "name": "Andrew Caya",
-      "email": "andrewscaya@yahoo.ca"
-    }
-  ],
-  "require": {
-    "php": "^7.0",
-    "andrewscaya/ascmvc": "dev-2.0.0-dev"
-  },
-  "require-dev": {
-    "phpunit/phpunit": "^4.8",
-    "squizlabs/php_codesniffer": "^2.3.1",
-    "linuxforphp/linuxforcomposer": "^1.0"
-  },
-    "autoload": {
-      "psr-4": {
-        "Application\\Models\\": "models/Application/Models",
-        "Application\\Middleware\\": "middleware/Application/Middleware",
-        "Application\\Controllers\\": "controllers/Application/Controllers",
-        "Application\\Services\\": "controllers/Application/Services",
-        "Specialmodule\\Controllers\\": "controllers/Specialmodule/Controllers"
-      }
-    },
-  "autoload-dev": {
-    "psr-4": {
-      "LightMvcTest\\": "test/"
-    }
-  },
-  "scripts": {
-    "check": [
-      "@cs",
-      "@test"
+    "name": "andrewscaya/lightmvcskel",
+    "description": "A lightweight MVC application for educational purposes built with ASCMVC.",
+    "license": "Apache-2.0",
+    "keywords": [
+        "ascmvc",
+        "application",
+        "mvc",
+        "education"
     ],
-    "cs": "phpcs",
-    "cs-fix": "phpcbf",
-    "test": "phpunit"
-  }
+    "homepage": "https://github.com/andrewscaya/lightmvcskel",
+    "authors": [
+        {
+            "name": "Andrew Caya",
+            "email": "andrewscaya@yahoo.ca"
+        }
+    ],
+    "require": {
+        "php": "^7.0",
+        "andrewscaya/ascmvc": "dev-2.0.0-dev"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^4.8",
+        "squizlabs/php_codesniffer": "^2.3.1",
+        "linuxforphp/linuxforcomposer": "^1.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Application\\Models\\": "models/Application/Models",
+            "Application\\Middleware\\": "middleware/Application/Middleware",
+            "Application\\Controllers\\": "controllers/Application/Controllers",
+            "Application\\Services\\": "controllers/Application/Services",
+            "Specialmodule\\Controllers\\": "controllers/Specialmodule/Controllers"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "LightMvcTest\\": "test/"
+        }
+    },
+    "scripts": {
+        "check": [
+            "@cs",
+            "@test"
+        ],
+        "cs": "phpcs",
+        "cs-fix": "phpcbf",
+        "test": "phpunit",
+        "pre-update-cmd": [
+            "php -r \"if (file_exists('vendor/composer/linuxforcomposer.pid')) {copy('vendor/composer/linuxforcomposer.pid', 'linuxforcomposer.pid');}\""
+        ],
+        "post-update-cmd": [
+            "php -r \"if (file_exists('linuxforcomposer.pid')) {rename('linuxforcomposer.pid', 'vendor/composer/linuxforcomposer.pid');}\""
+        ]
+    }
 }

@@ -12,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/andrewscaya/ascmvc.git",
-                "reference": "b1ba0aef2429d7f3828f484190f75e799edaf535"
+                "reference": "1bf3ad8021a11ca075825ce76bbe2397c0380dac"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/andrewscaya/ascmvc/zipball/b1ba0aef2429d7f3828f484190f75e799edaf535",
-                "reference": "b1ba0aef2429d7f3828f484190f75e799edaf535",
+                "url": "https://api.github.com/repos/andrewscaya/ascmvc/zipball/1bf3ad8021a11ca075825ce76bbe2397c0380dac",
+                "reference": "1bf3ad8021a11ca075825ce76bbe2397c0380dac",
                 "shasum": ""
             },
             "require": {
@@ -65,7 +65,7 @@
                 "framework",
                 "mvc"
             ],
-            "time": "2019-01-10T22:22:57+00:00"
+            "time": "2019-01-12T07:07:30+00:00"
         },
         {
             "name": "container-interop/container-interop",
@@ -1913,16 +1913,16 @@
     "packages-dev": [
         {
             "name": "linuxforphp/linuxforcomposer",
-            "version": "1.0.0",
+            "version": "1.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/linuxforphp/linuxforcomposer.git",
-                "reference": "d67d9b34f6e75f76b7f915a0e5f939d266fdded7"
+                "reference": "09d678f2801615ef7598f23814388816564b635b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/linuxforphp/linuxforcomposer/zipball/d67d9b34f6e75f76b7f915a0e5f939d266fdded7",
-                "reference": "d67d9b34f6e75f76b7f915a0e5f939d266fdded7",
+                "url": "https://api.github.com/repos/linuxforphp/linuxforcomposer/zipball/09d678f2801615ef7598f23814388816564b635b",
+                "reference": "09d678f2801615ef7598f23814388816564b635b",
                 "shasum": ""
             },
             "require": {
@@ -1934,7 +1934,7 @@
             "type": "library",
             "notification-url": "https://packagist.org/downloads/",
             "license": [
-                "GPL-2.0-only"
+                "Apache-2.0"
             ],
             "authors": [
                 {
@@ -1951,7 +1951,7 @@
                 "docker",
                 "php"
             ],
-            "time": "2018-11-08T05:52:48+00:00"
+            "time": "2019-01-13T06:31:15+00:00"
         },
         {
             "name": "phpdocumentor/reflection-common",
