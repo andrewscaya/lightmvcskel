@@ -18,7 +18,7 @@ class ProductController extends Controller implements AscmvcControllerFactoryInt
     public static function factory(array &$baseConfig, &$viewObject, Container &$serviceManager, AscmvcEventManager &$eventManager)
     {
         $serviceManager[ProductController::class] = $serviceManager->factory(function ($serviceManager) use ($baseConfig) {
-            $em = $serviceManager['em1'];
+            $em = $serviceManager['dem1'];
 
             $products = new Products();
 
