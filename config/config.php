@@ -4,8 +4,8 @@ $baseConfig['env'] = 'production'; // 'development' or 'production'
 
 $baseConfig['appName'] = 'The LightMVC Framework Skeleton Application';
 
-require_once 'routes.config.php';
+require 'routes.config.php';
 
-require_once 'view.config.php';
+require 'view.config.php';
 
-require_once 'middleware.config.php';
+require 'middleware.config.php';

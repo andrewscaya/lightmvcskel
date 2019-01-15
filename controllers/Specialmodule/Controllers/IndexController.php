@@ -9,10 +9,13 @@ class IndexController extends Controller
 {
     public function indexAction($vars = null)
     {
+        $middlewareName = $_SERVER['sessionmiddleware'] ?? 'None';
+
         $array = [
             'module' => 'Specialmodule',
             'controller' => 'IndexController',
-            'middlewareconstant' => BAZCONSTANT,
+            'sessionmiddleware' => $middlewareName,
+            'middlewareconstant' => BAZCONSTANT
         ];
         $response = new JsonResponse($array);
         

@@ -12,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/andrewscaya/ascmvc.git",
-                "reference": "eb6ce98e24bb1fb6113e37517815a202bec65144"
+                "reference": "51e0bbc47736b90f079943f212f6f552d69bf0b3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/andrewscaya/ascmvc/zipball/eb6ce98e24bb1fb6113e37517815a202bec65144",
-                "reference": "eb6ce98e24bb1fb6113e37517815a202bec65144",
+                "url": "https://api.github.com/repos/andrewscaya/ascmvc/zipball/51e0bbc47736b90f079943f212f6f552d69bf0b3",
+                "reference": "51e0bbc47736b90f079943f212f6f552d69bf0b3",
                 "shasum": ""
             },
             "require": {
@@ -68,7 +68,7 @@
                 "framework",
                 "mvc"
             ],
-            "time": "2019-01-14T05:35:30+00:00"
+            "time": "2019-01-15T07:13:17+00:00"
         },
         {
             "name": "atlas/mapper",

@@ -39,6 +39,7 @@
         }
     },
     "scripts": {
+        "run-swoole": "@php public/swoole.php 127.0.0.1 9501",
         "check": [
             "@cs",
             "@test"

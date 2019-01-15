@@ -4,7 +4,20 @@ declare(strict_types = 1);
 
 ob_start();
 
-define('BASEDIR', dirname(dirname(__FILE__)));
+if (!defined('BASEDIR')) {
+    define('BASEDIR', dirname(dirname(__FILE__)));
+}
+
+if (!file_put_contents(BASEDIR . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . 'dummy.txt', 'test')
+    || !file_put_contents(BASEDIR . DIRECTORY_SEPARATOR . 'logs' . DIRECTORY_SEPARATOR . 'dummy.txt', 'test')
+    || !file_put_contents(BASEDIR . DIRECTORY_SEPARATOR . 'templates_c' . DIRECTORY_SEPARATOR . 'dummy.txt', 'test')
+) {
+    unlink(BASEDIR . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . 'dummy.txt');
+    unlink(BASEDIR . DIRECTORY_SEPARATOR . 'logs' . DIRECTORY_SEPARATOR . 'dummy.txt');
+    unlink(BASEDIR . DIRECTORY_SEPARATOR . 'templates_c' . DIRECTORY_SEPARATOR . 'dummy.txt');
+
+    die('The \'cache\', \'logs\' and \'templates_c\' folders must be writable.');
+}
 
 require_once BASEDIR . DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR . 'autoload.php';
 
