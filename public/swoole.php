@@ -17,6 +17,10 @@ if (!file_put_contents(BASEDIR . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPAR
     die('The \'cache\', \'logs\' and \'templates_c\' folders must be writable.');
 }
 
+unlink(BASEDIR . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . 'dummy.txt');
+unlink(BASEDIR . DIRECTORY_SEPARATOR . 'logs' . DIRECTORY_SEPARATOR . 'dummy.txt');
+unlink(BASEDIR . DIRECTORY_SEPARATOR . 'templates_c' . DIRECTORY_SEPARATOR . 'dummy.txt');
+
 $logFile = BASEDIR . DIRECTORY_SEPARATOR . 'logs' . DIRECTORY_SEPARATOR . 'log.txt';
 
 if (PHP_SAPI !== 'cli') {

@@ -19,6 +19,10 @@ if (!file_put_contents(BASEDIR . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPAR
     die('The \'cache\', \'logs\' and \'templates_c\' folders must be writable.');
 }
 
+unlink(BASEDIR . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . 'dummy.txt');
+unlink(BASEDIR . DIRECTORY_SEPARATOR . 'logs' . DIRECTORY_SEPARATOR . 'dummy.txt');
+unlink(BASEDIR . DIRECTORY_SEPARATOR . 'templates_c' . DIRECTORY_SEPARATOR . 'dummy.txt');
+
 require_once BASEDIR . DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR . 'autoload.php';
 
 // Instantiate the loader
