@@ -15,16 +15,15 @@
         <div class="col-sm-3 col-md-2 sidebar">
           <ul class="nav nav-sidebar">
           <?php foreach($view['navmenu'] as $key => $value): ?>
-            <li><?php echo '<a href="' . $value . '">' . $key . '</a>' ?></li>
+              <li><?php echo '<a href="' . $value . '">' . $key . '</a>' ?></li>
           <?php endforeach; ?>
           </ul>
         </div>
         
         <div id="pageBody">
           <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-            <h1>Welcome to<br /><?php echo $view['appname'] ?>!</h1>
-            <p><br /><img src="<?php echo $view['urlbaseaddr'] ?>img/lightmvc_logo.png" /><br /></p>
-            <h3>You can <a href="<?php echo $view['urlbaseaddr'] ?>products/index">view a list of all products</a>!</h3>
+            <h1>Oops! This ain't Kansas anymore!</h1>
+            <p>Let's go back <a href="<?php echo $view['urlbaseaddr'] ?>index/index">HOME</a>!</p>
           </div>
         </div> <!-- END pageBody -->
         
@@ -32,7 +31,7 @@
     </div>
 
   <?php if ($view['bodyjs'] === 1): ?>
-    <?=$this->section('bodyjs', $this->fetch('bodyjs', ['view' => $view]))?>
+      <?=$this->section('bodyjs', $this->fetch('bodyjs', ['view' => $view]))?>
   <?php endif ?>
 
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
