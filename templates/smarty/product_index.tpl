@@ -20,7 +20,7 @@
           </ul>
         </div>
         
-        <div id="pageBody">
+        <div id="pageBodyProducts">
           <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
             <h1>Products page</h1>
             <div class="table-responsive">
@@ -43,16 +43,16 @@
                         <td>{$product.description}</td>
                         <td>{$product.image}</td>
                         <td>
-                            <a href="{$view.urlbaseaddr}index.php/product/edit/?id={$product.id}">Modify</a>
+                            <a href="{$view.urlbaseaddr}products/edit/{$product.id}">Modify</a>
                         </td>
                         <td>
-                            <a href="{$view.urlbaseaddr}index.php/product/delete/?id={$product.id}">Delete</a>
+                            <a href="{$view.urlbaseaddr}products/delete/{$product.id}">Delete</a>
                         </td>
                     </tr>
                   {/foreach}
               </table>
             </div>
-            <p><a href="{$view.urlbaseaddr}index.php/product/add/">Add new product</a></p>
+            <p><a href="{$view.urlbaseaddr}products/add">Add new product</a></p>
           </div>
         </div> <!-- END pageBody -->
         
@@ -64,7 +64,7 @@
 {/if}
 
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <script src="js/ie10-viewport-bug-workaround.js"></script>
+    <script src="{$view.urlbaseaddr}js/ie10-viewport-bug-workaround.js"></script>
     
   </body>
 </html>

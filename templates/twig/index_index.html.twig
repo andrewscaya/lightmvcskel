@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+{% if view.headjs is defined %}
+    {% include 'headjs.html.twig' %}
+{% else %}
+    {% include 'head.html.twig' %}
+{% endif %}
+
+  <body>
+  {% include 'navbar.html.twig' %}
+
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar">
+          <ul class="nav nav-sidebar">
+          {% for key, navMenuLink in view.navMenu %}
+            <li><a href="{{ navMenuLink }}">{{ key }}</a></li>
+          {% endfor %}
+          </ul>
+        </div>
+        
+        <div id="pageBody">
+          <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+            <h1>Welcome to<br />{{ view.appname }}!</h1>
+            <p><br /><img src="{{ view.urlbaseaddr }}img/lightmvc_logo.png" /><br /></p>
+            <h3>You can <a href="{{ view.urlbaseaddr }}products/index">view a list of all products</a>!</h3>
+          </div>
+        </div> <!-- END pageBody -->
+        
+      </div>
+    </div>
+
+{% if view.bodyjs is defined %}
+    {% include 'bodyjs.html.twig' %}
+{% endif %}
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="{{ view.urlbaseaddr }}js/ie10-viewport-bug-workaround.js"></script>
+    
+  </body>
+</html>

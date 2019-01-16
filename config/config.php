@@ -1,19 +1,11 @@
 <?php
 
-$baseConfig['appName'] = 'LightMVC Framework';
+$baseConfig['env'] = 'production'; // 'development' or 'production'
 
-/*$baseConfig['doctrine']['DBAL']['CONN_NAME'] = [
-    'driver'   => 'pdo_mysql',
-    'host'     => '127.0.0.1',
-    'user'     => 'USERNAME',
-    'password' => 'PASSWORD',
-    'dbname'   => 'DBNAME',
-];*/
+$baseConfig['appName'] = 'The LightMVC Framework Skeleton Application';
 
-/*$baseConfig['doctrine']['ORM']['CONN_NAME'] = [
-    'driver'   => 'pdo_mysql',
-    'host'     => '127.0.0.1',
-    'user'     => 'USERNAME',
-    'password' => 'PASSWORD',
-    'dbname'   => 'DBNAME',
-];*/
+require 'routes.config.php';
+
+require 'view.config.php';
+
+require 'middleware.config.php';

@@ -2,68 +2,67 @@
 
 namespace Application\Controllers;
 
-use \Ascmvc\AbstractApp;
-use \Ascmvc\Mvc\Controller;
+use Application\Models\Entity\Products;
 use Application\Services\CrudProductsService;
 use Application\Services\CrudProductsServiceTrait;
-use Application\Models\Entity\Products;
+use Ascmvc\AscmvcControllerFactoryInterface;
+use Ascmvc\Mvc\AscmvcEventManager;
+use Ascmvc\Mvc\Controller;
+use Ascmvc\Mvc\AscmvcEvent;
+use Pimple\Container;
 
-class ProductController extends Controller
+class ProductController extends Controller implements AscmvcControllerFactoryInterface
 {
-
     use CrudProductsServiceTrait;
-
-    public static function config(AbstractApp &$app)
+    
+    public static function factory(array &$baseConfig, &$viewObject, Container &$serviceManager, AscmvcEventManager &$eventManager)
     {
-        IndexController::config($app);
+        $serviceManager[ProductController::class] = $serviceManager->factory(function ($serviceManager) use ($baseConfig) {
+            $em = $serviceManager['dem1'];
+
+            $products = new Products();
+
+            $crudService = new CrudProductsService($products, $em);
+
+            $controller = new ProductController($baseConfig);
+
+            $controller->setCrudService($crudService);
+
+            return $controller;
+        });
     }
 
-    public function predispatch()
+    /*public function onDispatch(AscmvcEvent $event)
     {
-        $em = $this->serviceManager->getRegisteredService('em1');
+        $array = [
+            'firstname' => 'Andrew',
+            'lastname' => 'Caya',
+            'age' => 42,
+        ];
 
-        $products = new Products();
+        $response = new Response();
+        $response->getBody()->write(json_encode($array));
+        $response = $response
+            ->withStatus(200)
+            ->withHeader('Content-Type', 'application/json')
+            ->withAddedHeader('X-Custom-Header', 'it works');
 
-        $crudService = new CrudProductsService($products, $em);
+        return $response;
+    }*/
 
-        $this->serviceManager->addRegisteredService('CrudProductService', $crudService);
-
-        $this->setCrudProducts($this->serviceManager->getRegisteredService('CrudProductService'));
-
+    public function onDispatch(AscmvcEvent $event)
+    {
         $this->view['saved'] = 0;
 
         $this->view['error'] = 0;
     }
-
-    public function indexAction()
+    
+    protected function readProducts($id = null)
     {
-        $results = $this->readProducts();
-
-        if (is_object($results)) {
-            $results = [$this->hydrateArray($results)];
+        if ($id == null) {
+            return $this->crudService->read();
         } else {
-            for ($i = 0; $i < count($results); $i++) {
-                $results[$i] = $this->hydrateArray($results[$i]);
-            }
-        }
-
-        $this->view['bodyjs'] = 1;
-
-        $this->view['results'] = $results;
-
-        $this->viewObject->assign('view', $this->view);
-
-        $this->viewObject->display('product_index.tpl');
-    }
-
-    protected function readProducts()
-    {
-        if (!empty($_GET)) {
-            $id = (int) $_GET['id'];
-
-            return $this->getCrudProducts()->read($id);
-        } else {
-            return $this->getCrudProducts()->read();
+            return $this->crudService->read($id);
         }
     }
 
@@ -78,85 +77,106 @@ class ProductController extends Controller
         return $array;
     }
 
-    public function addAction()
+    public function indexAction($vars = null)
     {
-        if (!empty($_POST)) {
-            // Would have to sanitize and filter the $_POST array.
-            $productArray['name'] = (string) $_POST['name'];
-            $productArray['price'] = (string) $_POST['price'];
-            $productArray['description'] = (string) $_POST['description'];
-            $productArray['image'] = (string) $_FILES['image']['name'];
+        $results = $this->readProducts();
 
-            if ($this->crudProducts->create($productArray)) {
-                $this->view['saved'] = 1;
-            } else {
-                $this->view['error'] = 1;
-            }
-        }
-
-        $this->view['bodyjs'] = 1;
-
-        $this->viewObject->assign('view', $this->view);
-
-        $this->viewObject->display('product_add_form.tpl');
-    }
-
-    public function editAction()
-    {
-        if (!empty($_POST)) {
-            // Would have to sanitize and filter the $_POST array.
-            $productArray['id'] = (string) $_POST['id'];
-            $productArray['name'] = (string) $_POST['name'];
-            $productArray['price'] = (string) $_POST['price'];
-            $productArray['description'] = (string) $_POST['description'];
-
-            if (!empty($_FILES['image']['name'])) {
-                $productArray['image'] = (string) $_FILES['image']['name'];
-            } else {
-                $productArray['image'] = (string) $_POST['imageoriginal'];
-            }
-
-            if ($this->crudProducts->update($productArray)) {
-                $this->view['saved'] = 1;
-            } else {
-                $this->view['error'] = 1;
+        if (is_object($results)) {
+            $results = [$this->hydrateArray($results)];
+        } elseif (is_array($results)) {
+            for ($i = 0; $i < count($results); $i++) {
+                $results[$i] = $this->hydrateArray($results[$i]);
             }
         } else {
-            $results = $this->readProducts();
-
-            if (is_object($results)) {
-                $results = [$this->hydrateArray($results)];
-            } else {
-                for ($i = 0; $i < count($results); $i++) {
-                    $results[$i] = $this->hydrateArray($results[$i]);
-                }
-            }
-
-            $this->view['results'] = $results;
+            $results['nodata'] = 'No results';
         }
 
         $this->view['bodyjs'] = 1;
 
-        $this->viewObject->assign('view', $this->view);
-
-        $this->viewObject->display('product_edit_form.tpl');
+        $this->view['results'] = $results;
+        
+        $this->view['templatefile'] = 'product_index';
+        
+        return $this->view;
     }
 
-    public function deleteAction()
+    public function addAction($vars)
     {
-        if (!empty($_GET)) {
-            // Would have to sanitize and filter the $_GET array.
-            $id = (int) $_GET['id'];
+        if (!empty($vars['post'])) {
+            // Would have to sanitize and filter the $_POST array.
+            $productArray['name'] = (string) $vars['post']['name'];
+            $productArray['price'] = (string) $vars['post']['price'];
+            $productArray['description'] = (string) $vars['post']['description'];
+            $productArray['image'] = (string) $vars['files']['image']->getClientFilename();
 
-            if ($this->crudProducts->delete($id)) {
+            if ($this->crudService->create($productArray)) {
                 $this->view['saved'] = 1;
             } else {
                 $this->view['error'] = 1;
             }
         }
 
-        $this->viewObject->assign('view', $this->view);
+        $this->view['bodyjs'] = 1;
+        
+        $this->view['templatefile'] = 'product_add_form';
+        
+        return $this->view;
+    }
 
-        $this->viewObject->display('product_delete.tpl');
+    public function editAction($vars)
+    {
+        if (!empty($vars['post'])) {
+            // Would have to sanitize and filter the $_POST array.
+            $productArray['id'] = (string) $vars['post']['id'];
+            $productArray['name'] = (string) $vars['post']['name'];
+            $productArray['price'] = (string) $vars['post']['price'];
+            $productArray['description'] = (string) $vars['post']['description'];
+
+            if (!empty($vars['files']['image']->getClientFilename())) {
+                $productArray['image'] = (string) $vars['files']['image']->getClientFilename();
+            } else {
+                $productArray['image'] = (string) $vars['post']['imageoriginal'];
+            }
+
+            if ($this->crudService->update($productArray)) {
+                $this->view['saved'] = 1;
+            } else {
+                $this->view['error'] = 1;
+            }
+        }
+
+        $results = $this->readProducts($vars['get']['id']);
+
+        if (is_object($results)) {
+            $results = [$this->hydrateArray($results)];
+        } else {
+            for ($i = 0; $i < count($results); $i++) {
+                $results[$i] = $this->hydrateArray($results[$i]);
+            }
+        }
+
+        $this->view['results'] = $results;
+
+        $this->view['bodyjs'] = 1;
+        
+        $this->view['templatefile'] = 'product_edit_form';
+        
+        return $this->view;
+    }
+
+    public function deleteAction($vars)
+    {
+		// Sanitize and filter the $_GET array.
+		$id = (int) $vars['get']['id'];
+
+		if ($this->crudService->delete($id)) {
+			$this->view['saved'] = 1;
+		} else {
+			$this->view['error'] = 1;
+		}
+		
+		$this->view['templatefile'] = 'product_delete';
+        
+        return $this->view;
     }
 }

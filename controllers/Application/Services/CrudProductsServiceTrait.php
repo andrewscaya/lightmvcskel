@@ -5,21 +5,21 @@ namespace Application\Services;
 trait CrudProductsServiceTrait
 {
 
-    protected $crudProducts;
+    protected $crudService;
 
     /**
      * @return mixed
      */
-    public function getCrudProducts()
+    public function getCrudService()
     {
-        return $this->crudProducts;
+        return $this->crudService;
     }
 
     /**
      * @param mixed $crudProducts
      */
-    public function setCrudProducts($crudProducts)
+    public function setCrudService($crudService)
     {
-        $this->crudProducts = $crudProducts;
+        $this->crudService = $crudService;
     }
 }

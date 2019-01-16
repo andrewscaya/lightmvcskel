@@ -22,14 +22,9 @@
         
         <div id="pageBody">
           <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-              <h1>Delete product</h1>
-              {if $view.saved == 1}
-                  <div class="alert-success"><p>The product has been deleted!</p></div>
-              {/if}
-              {if $view.error == 1}
-                  <div class="alert-danger"><p>The product could not been deleted! Please try again.</p></div>
-              {/if}
-              <p><br /><br /><a href="{$view.urlbaseaddr}index.php/product/index/">List products</a><br /><br /></p>
+            <h1>Welcome to<br />{$view.appname}!</h1>
+            <p><br /><img src="{$view.urlbaseaddr}img/lightmvc_logo.png" /><br /></p>
+            <h3>You can <a href="{$view.urlbaseaddr}products/index">view a list of all products</a>!</h3>
           </div>
         </div> <!-- END pageBody -->
         
@@ -37,11 +32,11 @@
     </div>
 
 {if $view.bodyjs == 1}
-    {include file='bodyjs.tpl'}
+{include file='bodyjs.tpl'}
 {/if}
 
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <script src="js/ie10-viewport-bug-workaround.js"></script>
+    <script src="{$view.urlbaseaddr}js/ie10-viewport-bug-workaround.js"></script>
     
   </body>
 </html>

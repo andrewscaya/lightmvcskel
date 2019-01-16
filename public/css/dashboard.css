@@ -104,3 +104,9 @@ body {
   border-radius: 50%;
 }
 
+/*
+ * Custom ASC styling
+ */
+#pageBody {
+  text-align: center;
+}

@@ -2,9 +2,9 @@
 <html lang="en">
 
 {if isset($view.headjs)}
-{include file='headjs.tpl'}
+    {include file='headjs.tpl'}
 {else}
-{include file='head.tpl'}
+    {include file='head.tpl'}
 {/if}
 
   <body>
@@ -20,7 +20,7 @@
           </ul>
         </div>
         
-        <div id="pageBody">
+        <div id="pageBodyProducts">
           <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
               <h1>Edit product</h1>
               {foreach from=$view.results item=product}
@@ -45,7 +45,7 @@
               {if $view.error == 1}
                   <div class="alert-danger"><p>The product has not been saved! Please try again.</p></div>
               {/if}
-              <p><br /><br /><a href="{$view.urlbaseaddr}index.php/product/index/">List products</a><br /><br /></p>
+              <p><br /><br /><a href="{$view.urlbaseaddr}products/index">List products</a><br /><br /></p>
           </div>
         </div> <!-- END pageBody -->
         
@@ -57,7 +57,7 @@
 {/if}
 
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <script src="js/ie10-viewport-bug-workaround.js"></script>
+    <script src="{$view.urlbaseaddr}js/ie10-viewport-bug-workaround.js"></script>
     
   </body>
 </html>
