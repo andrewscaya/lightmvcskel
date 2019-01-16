@@ -1082,12 +1082,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/lightmvc/ascmvc.git",
-                "reference": "33019ba5b11297e054e10bc3c50cd2df1c94e524"
+                "reference": "c355909a24385221e8addea0f0a474a96e60911b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/lightmvc/ascmvc/zipball/33019ba5b11297e054e10bc3c50cd2df1c94e524",
-                "reference": "33019ba5b11297e054e10bc3c50cd2df1c94e524",
+                "url": "https://api.github.com/repos/lightmvc/ascmvc/zipball/c355909a24385221e8addea0f0a474a96e60911b",
+                "reference": "c355909a24385221e8addea0f0a474a96e60911b",
                 "shasum": ""
             },
             "require": {
@@ -1141,7 +1141,7 @@
                 "mvc",
                 "swoole"
             ],
-            "time": "2019-01-16T01:58:13+00:00"
+            "time": "2019-01-16T16:11:06+00:00"
         },
         {
             "name": "nikic/fast-route",
