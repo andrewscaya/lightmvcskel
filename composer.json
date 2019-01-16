@@ -1,14 +1,17 @@
 {
-    "name": "andrewscaya/lightmvcskel",
-    "description": "A lightweight MVC application for educational purposes built with ASCMVC.",
+    "name": "lightmvc/lightmvcskel",
+    "description": "The LightMVC Framework Skeleton Application that can run on Swoole.",
     "license": "Apache-2.0",
     "keywords": [
+        "lightmvc",
         "ascmvc",
+        "framework",
         "application",
         "mvc",
-        "education"
+        "middleware",
+        "swoole"
     ],
-    "homepage": "https://github.com/andrewscaya/lightmvcskel",
+    "homepage": "https://github.com/lightmvc/lightmvcskel",
     "authors": [
         {
             "name": "Andrew Caya",
@@ -16,8 +19,8 @@
         }
     ],
     "require": {
-        "php": "^7.0",
-        "andrewscaya/ascmvc": "dev-2.0.0-dev"
+        "php": "^7.1",
+        "lightmvc/ascmvc": "2.0.0"
     },
     "require-dev": {
         "phpunit/phpunit": "^4.8",
