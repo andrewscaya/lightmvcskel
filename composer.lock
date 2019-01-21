@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "86e0a72a9e4ce06023fd8f4c3fa7a814",
+    "content-hash": "af8f65ddd5e0e08026a9a54f8d859a15",
     "packages": [
         {
             "name": "atlas/mapper",
@@ -1078,16 +1078,16 @@
         },
         {
             "name": "lightmvc/ascmvc",
-            "version": "2.0.0",
+            "version": "2.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/lightmvc/ascmvc.git",
-                "reference": "c355909a24385221e8addea0f0a474a96e60911b"
+                "reference": "062c82798d4f20cbefeb3e58d33e9e795f458c0a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/lightmvc/ascmvc/zipball/c355909a24385221e8addea0f0a474a96e60911b",
-                "reference": "c355909a24385221e8addea0f0a474a96e60911b",
+                "url": "https://api.github.com/repos/lightmvc/ascmvc/zipball/062c82798d4f20cbefeb3e58d33e9e795f458c0a",
+                "reference": "062c82798d4f20cbefeb3e58d33e9e795f458c0a",
                 "shasum": ""
             },
             "require": {
@@ -1117,6 +1117,9 @@
             },
             "type": "library",
             "autoload": {
+                "files": [
+                    "src/functions/get-namespace-from-path.php"
+                ],
                 "psr-4": {
                     "Ascmvc\\": "src/"
                 }
@@ -1141,7 +1144,7 @@
                 "mvc",
                 "swoole"
             ],
-            "time": "2019-01-16T16:11:06+00:00"
+            "time": "2019-01-21T17:10:57+00:00"
         },
         {
             "name": "nikic/fast-route",
