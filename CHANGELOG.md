@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 2.0.1 (2019-01-20)
+
+- Updates the dependencies.
+
 ## 2.0.0 (2019-01-15)
 
 - Adds support for running the framework on Swoole.
