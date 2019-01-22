@@ -19,7 +19,7 @@
                 <?php foreach($view['vars'] as $key => $value): ?>
                   <p>Allowed method: <?php echo $value ?></p>
                 <?php endforeach; ?>
-                <p>Let's go back <a href="<?php echo $view['urlbaseaddr'] ?>index/index">HOME</a>!</p>
+                <p>Let's go back <a href="<?php echo $view['urlbaseaddr'] ?>index">HOME</a>!</p>
             </div>
         </div> <!-- END pageBody -->
       </div>
