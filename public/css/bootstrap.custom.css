@@ -1,4 +1,8 @@
-﻿.etista-img-div {
+﻿body {
+    background-color: #f2f2f2;
+}
+
+.etista-img-div {
 
     display: block;
     width: 100%;
@@ -33,4 +37,24 @@
   display: block;
   float: left;
   padding: 0px 10px 0px 0px;
+}
+
+.navbar-inverse {
+    background-color: #3399ff;
+
+}
+.navbar-inverse .navbar-collapse {
+    background-color: #3399ff;
+}
+
+.navbar-inverse .navbar-brand {
+    color: white;
+}
+
+.navbar-inverse .navbar-nav > li > a {
+    color: white;
+}
+
+.max-w-xl {
+    max-width: 60%;
 }

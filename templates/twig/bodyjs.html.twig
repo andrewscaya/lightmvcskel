@@ -1,10 +1,10 @@
     <!-- Core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-{% for script in view.js %}
-	<script src="{{ script }}"></script>
-{% endfor %}
-
+    {% for script in view.js %}
+        <script src="{{ script }}"></script>
+    {% endfor %}
+    
     <script>
       var jq = $.noConflict();
       jq(document).ajaxComplete(function() {
@@ -17,6 +17,6 @@
       });
     </script>
 
-{% for script in view.jsscripts %}
-	{{ script }}
-{% endfor %}
+    {% for script in view.jsscripts %}
+        {{ script }}
+    {% endfor %}

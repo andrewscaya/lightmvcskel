@@ -19,7 +19,7 @@
               </div>
 
               <?php foreach($view['results'] as $key => $product): ?>
-              <form class="w-full max-w-md" method="post" action="" enctype="multipart/form-data" id="formadd1">
+              <form class="w-full max-w-md" method="post" action="" enctype="multipart/form-data" id="formedit1">
                   <input type="hidden" name="id" value="<?php echo $product['id'] ?>" />
                   <input type="hidden" name="imageoriginal" value="<?php echo $product['image'] ?>" />
                   <div class="flex flex-wrap -mx-3 mb-6">
@@ -46,7 +46,7 @@
                   </div>
                   <p>NOTE: If no file is selected, the current file will be kept.</p>
 
-                  <button class="flex-no-shrink bg-blue hover:bg-blue-dark border-blue hover:border-blue-dark text-sm border-4 text-white py-1 px-2 rounded" type="submit" form="formadd1">
+                  <button class="flex-no-shrink bg-blue hover:bg-blue-dark border-blue hover:border-blue-dark text-sm border-4 text-white py-1 px-2 rounded" type="submit" form="formedit1">
                       Save
                   </button>
               </form>

@@ -12,23 +12,46 @@
 
     <div class="container">
       <div class="row">
-        <div class="col-sm-3 col-md-2 sidebar">
-          <ul class="nav nav-sidebar">
-          <?php foreach($view['navmenu'] as $key => $value): ?>
-              <li><?php echo '<a href="' . $value . '">' . $key . '</a>' ?></li>
-          <?php endforeach; ?>
-          </ul>
-        </div>
-        
         <div id="pageBody">
-          <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-            <h1>Oops! This ain't Kansas anymore!</h1>
-            <p>Let's go back <a href="<?php echo $view['urlbaseaddr'] ?>index/index">HOME</a>!</p>
-          </div>
+            <div class="col-sm-6 col-sm-offset-3 col-md-6 col-md-offset-3 main">
+                <h1>Oops!<br />This ain't Kansas anymore!</h1>
+                <p>Let's go back <a href="<?php echo $view['urlbaseaddr'] ?>index/index">HOME</a>!</p>
+            </div>
         </div> <!-- END pageBody -->
-        
       </div>
     </div>
+
+    <!-- feature -->
+    <div class="w-full bg-yellow text-black">
+      <div class="text-center">
+          <p><br /></p>
+          <h2 class="leading-normal mb-6 text-grey-darkest"></h2>
+          <h3></h3>
+          <p><br /></p>
+      </div>
+    </div>
+    <!-- /feature -->
+
+    <!-- content -->
+    <div class="w-full px-6 py-12 bg-white">
+      <div class="max-w-xl mx-auto flex flex-wrap">
+
+          <div class="w-full md:w-1/2 flex flex-wrap">
+          </div>
+
+          <div class="w-full md:w-1/2 p-2 md:px-6">
+              <h3>
+              </h3>
+              <p class="mb-5"></p>
+              <p class="mb-8"></p>
+              <p class="mb-8"></p>
+          </div>
+
+      </div>
+    </div>
+    <!-- /content -->
+
+  <?=$this->section('footer', $this->fetch('footer', ['view' => $view]))?>
 
   <?php if ($view['bodyjs'] === 1): ?>
       <?=$this->section('bodyjs', $this->fetch('bodyjs', ['view' => $view]))?>

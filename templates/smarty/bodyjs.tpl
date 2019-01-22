@@ -1,9 +1,9 @@
     <!-- Core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-{foreach from=$view.js item=script}
-    <script src="{$script}"></script>
-{/foreach}
+    {foreach from=$view.js item=script}
+        <script src="{$script}"></script>
+    {/foreach}
     
     <script>
       var jq = $.noConflict();
@@ -17,6 +17,6 @@
       });
     </script>
 
-{foreach from=$view.jsscripts item=script}
-    {$script}
-{/foreach}
+    {foreach from=$view.jsscripts item=script}
+        {$script}
+    {/foreach}
