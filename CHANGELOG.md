@@ -1,7 +1,8 @@
 # CHANGELOG
 
-## 2.0.2 (2019-02-14)
+## 2.0.2 (2019-01-23)
 
+- Adds a sample configuration file for NGINX.
 - Updates all the view elements.
 
 ## 2.0.1 (2019-01-20)
