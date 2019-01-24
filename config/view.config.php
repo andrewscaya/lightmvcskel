@@ -3,7 +3,7 @@
 $baseConfig['templateManager'] = 'Plates';
 
 $baseConfig['templates'] = [
-    'templateDir' => $baseConfig['BASEDIR'] . DIRECTORY_SEPARATOR . 'templates' . DIRECTORY_SEPARATOR . 'plates_tailwindcss' . DIRECTORY_SEPARATOR,
+    'templateDir' => $baseConfig['BASEDIR'] . DIRECTORY_SEPARATOR . 'templates' . DIRECTORY_SEPARATOR . 'plates_bootstrap' . DIRECTORY_SEPARATOR,
     'compileDir' => $baseConfig['BASEDIR'] . DIRECTORY_SEPARATOR . 'templates_c' . DIRECTORY_SEPARATOR,
     'configDir' => $baseConfig['BASEDIR'] . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR,
     'cacheDir' => $baseConfig['BASEDIR'] . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR,
@@ -22,11 +22,15 @@ $baseConfig['view'] = [
     'css' =>
         [
             $baseConfig['URLBASEADDR'] . 'css/tailwind.min.css',
+            $baseConfig['URLBASEADDR'] . 'css/bootstrap.min.css',
+            $baseConfig['URLBASEADDR'] . 'css/bootstrap.custom.css',
+            $baseConfig['URLBASEADDR'] . 'css/dashboard.css',
 
         ],
     'js' =>
         [
             $baseConfig['URLBASEADDR'] . 'js/jquery.min.js',
+            $baseConfig['URLBASEADDR'] . 'js/bootstrap.min.js',
 
         ],
     'jsscripts' =>
@@ -55,7 +59,7 @@ $baseConfig['view'] = [
             'API Doc' => 'http://apidocs.lightmvcframework.net/',
 
         ],
-    'navmenu' =>
+    'navMenu' =>
         [
             'Home' => $baseConfig['URLBASEADDR'] . 'index',
 

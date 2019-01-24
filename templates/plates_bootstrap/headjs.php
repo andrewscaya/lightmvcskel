@@ -10,7 +10,7 @@
     
     <link rel="apple-touch-icon" href="<?php echo $view['urlbaseaddr'] ?>apple-touch-icon.png">
 
-    <title>{$view.title}</title>
+    <title><?php echo $view['title'] ?></title>
 
         <!-- Core CSS -->
     <?php foreach($view['css'] as $key => $value): ?>

@@ -2,9 +2,9 @@
 <html lang="en">
 
 {if isset($view.headjs)}
-{include file='headjs.tpl'}
+    {include file='headjs.tpl'}
 {else}
-{include file='head.tpl'}
+    {include file='head.tpl'}
 {/if}
 
   <body>
@@ -12,19 +12,10 @@
 
     <div class="container">
       <div class="row">
-        <div class="col-sm-3 col-md-2 sidebar">
-          <ul class="nav nav-sidebar">
-          {foreach from=$view.navMenu key=navMenuEntry item=navMenuLink}
-            <li><a href="{$navMenuLink}">{$navMenuEntry}</a></li>
-          {/foreach}
-          </ul>
-        </div>
-        
         <div id="pageBodyProducts">
-          <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
             <h1>Products page</h1>
             <div class="table-responsive">
-              <table class="table">
+              <table class="table table-striped">
                 <thead>
                   <tr>
                       <th>ID</th>
@@ -35,6 +26,12 @@
                       <th>Options</th>
                   </tr>
                 </thead>
+                <tbody>
+                {if isset($view.results.nodata)}
+                <tr>
+                    <td>{$view.results.nodata}</td>
+                </tr>
+                {else}
                   {foreach from=$view.results item=product}
                     <tr>
                         <td>{$product.id}</td>
@@ -50,18 +47,50 @@
                         </td>
                     </tr>
                   {/foreach}
+                {/if}
+                </tbody>
               </table>
             </div>
-            <p><a href="{$view.urlbaseaddr}products/add">Add new product</a></p>
-          </div>
+            <p><a href="{$view.urlbaseaddr}products/add" class="mt-6 inline-block bg-white text-black no-underline px-4 py-3 shadow-lg">Add new product</a></p>
         </div> <!-- END pageBody -->
-        
       </div>
     </div>
 
-{if $view.bodyjs == 1}
-{include file='bodyjs.tpl'}
-{/if}
+    <!-- feature -->
+    <div class="w-full bg-yellow text-black">
+      <div class="text-center">
+          <p><br /></p>
+          <h2 class="leading-normal mb-6 text-grey-darkest"></h2>
+          <h3></h3>
+          <p><br /></p>
+      </div>
+    </div>
+    <!-- /feature -->
+
+    <!-- content -->
+    <div class="w-full px-6 py-12 bg-white">
+      <div class="max-w-xl mx-auto flex flex-wrap">
+
+          <div class="w-full md:w-1/2 flex flex-wrap">
+          </div>
+
+          <div class="w-full md:w-1/2 p-2 md:px-6">
+              <h3>
+              </h3>
+              <p class="mb-5"></p>
+              <p class="mb-8"></p>
+              <p class="mb-8"></p>
+          </div>
+
+      </div>
+    </div>
+    <!-- /content -->
+
+  {include file='footer.tpl'}
+
+  {if $view.bodyjs == 1}
+      {include file='bodyjs.tpl'}
+  {/if}
 
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="{$view.urlbaseaddr}js/ie10-viewport-bug-workaround.js"></script>
