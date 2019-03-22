@@ -13,7 +13,7 @@ You can use the **LightMVC Skeleton Application** by issuing these commands:
     $ cd lightmvcskel
     $ composer install
 
-> The LightMVC Skeleton Application can also be downloaded as an archive file from the https://lightmvc.net/download.
+> The LightMVC Skeleton Application can also be downloaded as an archive file from the https://lightmvcframework.net/download.
 
 Once the previous step is done:
 
