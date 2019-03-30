@@ -132,6 +132,22 @@ $http->on("request", function ($request, $response) use ($static) {
 
     $baseConfig = $app->boot();
 
+    $config = new \Ascmvc\Session\Config($baseConfig['session']);
+    $sessionManager = \Ascmvc\Session\SessionManager::getSwooleSessionInterface($request, $response, $config);
+    $sessionManager->setDriver(
+        new \Doctrine\Common\Cache\FilesystemCache(
+            BASEDIR . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR
+        )
+    );
+
+    try {
+        $sessionManager->start();
+    } catch (\Throwable $exception){
+        var_dump($exception);
+    }
+
+    $app->setSessionManager($sessionManager);
+
     if($baseConfig['env'] === 'production') {
         set_error_handler(function($errno, $errstr, $errfile, $errline, array $errcontext) {
             // error was suppressed with the @-operator
