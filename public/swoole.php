@@ -193,6 +193,7 @@ $http->on("request", function ($request, $response) use ($static) {
     }
 
     $response->status($finalResponse->getStatusCode());
+    $sessionManager->persist();
     $response->end($finalResponse->getBody()->__toString());
 });
 
