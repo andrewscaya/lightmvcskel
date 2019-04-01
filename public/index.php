@@ -39,7 +39,7 @@ $app = Ascmvc\Mvc\App::getInstance();
 $baseConfig = $app->boot();
 
 $config = new \Ascmvc\Session\Config($baseConfig['session']);
-$sessionManager = \Ascmvc\Session\SessionManager::getSwooleSessionInterface($request, $response, $config);
+$sessionManager = \Ascmvc\Session\SessionManager::getSessionManager($request, $response, $config, true);
 $sessionManager->setDriver(
     new \Doctrine\Common\Cache\FilesystemCache(
         BASEDIR . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR
@@ -87,6 +87,8 @@ if($baseConfig['env'] === 'production') {
 
     $app->initialize($baseConfig)->run();
 }
+
+$sessionManager->persist();
 
 flush();
 
