@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 2.0.3 (2019-04-10)
+
+- Modifies the sample configuration file for NGINX.
+
 ## 2.0.2 (2019-01-23)
 
 - Adds a sample configuration file for NGINX.
