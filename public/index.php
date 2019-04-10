@@ -38,6 +38,17 @@ $app = Ascmvc\Mvc\App::getInstance();
 
 $baseConfig = $app->boot();
 
+$config = new \Ascmvc\Session\Config($baseConfig['session']);
+$sessionManager = \Ascmvc\Session\SessionManager::getSessionManager(null, null, $config, true);
+
+try {
+    $sessionManager->start();
+} catch (\Throwable $exception){
+    var_dump($exception);
+}
+
+$app->setSessionManager($sessionManager);
+
 if($baseConfig['env'] === 'production') {
     set_error_handler(function($errno, $errstr, $errfile, $errline, array $errcontext) {
         // error was suppressed with the @-operator
@@ -71,6 +82,8 @@ if($baseConfig['env'] === 'production') {
 
     $app->initialize($baseConfig)->run();
 }
+
+$sessionManager->persist();
 
 flush();
 

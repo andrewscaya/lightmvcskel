@@ -9,3 +9,5 @@ require 'routes.config.php';
 require 'view.config.php';
 
 require 'middleware.config.php';
+
+require 'session.config.php';
