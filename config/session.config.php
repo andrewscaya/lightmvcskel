@@ -1,7 +1,7 @@
 <?php
 
 $baseConfig['session'] = [
-    'enabled' => false,
+    'enabled' => true,
     'psr6_cache_pool' => \Ascmvc\Session\Cache\DoctrineCacheItemPool::class,
     'doctrine_cache_driver' => \Doctrine\Common\Cache\FilesystemCache::class,
     //'doctrine_cache_driver' => \Doctrine\Common\Cache\XcacheCache::class,
