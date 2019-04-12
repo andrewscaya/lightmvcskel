@@ -3,33 +3,62 @@
 namespace Application\Controllers;
 
 use Application\Models\Entity\Products;
-use Application\Services\CrudProductsService;
-use Application\Services\CrudProductsServiceTrait;
+use Application\Services\ProductsPolicy;
+use Application\Services\ProductsReadModel;
 use Ascmvc\AscmvcControllerFactoryInterface;
-use Ascmvc\Mvc\AscmvcEventManager;
+use Ascmvc\EventSourcing\Event;
+use Ascmvc\EventSourcing\EventDispatcher;
 use Ascmvc\Mvc\Controller;
 use Ascmvc\Mvc\AscmvcEvent;
 use Pimple\Container;
 
-class ProductController extends Controller implements AscmvcControllerFactoryInterface
+class ProductsController extends Controller implements AscmvcControllerFactoryInterface
 {
-    use CrudProductsServiceTrait;
-    
-    public static function factory(array &$baseConfig, &$viewObject, Container &$serviceManager, AscmvcEventManager &$eventManager)
+    const READ_REQUESTED = 'productcontroller_products_read_request_received';
+
+    const CREATE_REQUESTED = 'productcontroller_products_create_request_received';
+
+    const UPDATE_REQUESTED = 'productcontroller_products_update_request_received';
+
+    const DELETE_REQUESTED = 'productcontroller_products_delete_request_received';
+
+    const READ_COMPLETED = 'productcontroller_products_read_request_completed';
+
+    const CREATE_COMPLETED = 'productcontroller_products_create_request_completed';
+
+    const UPDATE_COMPLETED = 'productcontroller_products_update_request_completed';
+
+    const DELETE_COMPLETED = 'productcontroller_products_delete_request_completed';
+
+    public static function factory(array &$baseConfig, EventDispatcher &$eventDispatcher, Container &$serviceManager, &$viewObject)
     {
-        $serviceManager[ProductController::class] = $serviceManager->factory(function ($serviceManager) use ($baseConfig) {
-            $em = $serviceManager['dem1'];
+        $productsReadModel = ProductsReadModel::getInstance($eventDispatcher);
 
-            $products = new Products();
+        $eventDispatcher->attach(
+            ProductsController::READ_REQUESTED,
+            [$productsReadModel, 'onEvent']
+        );
 
-            $crudService = new CrudProductsService($products, $em);
+        $productsPolicy = ProductsPolicy::getInstance($eventDispatcher);
 
-            $controller = new ProductController($baseConfig);
+        $eventDispatcher->attach(
+            ProductsController::CREATE_REQUESTED,
+            [$productsPolicy, 'onEvent']
+        );
 
-            $controller->setCrudService($crudService);
+        $eventDispatcher->attach(
+            ProductsController::UPDATE_REQUESTED,
+            [$productsPolicy, 'onEvent']
+        );
 
-            return $controller;
-        });
+        $eventDispatcher->attach(
+            ProductsController::DELETE_REQUESTED,
+            [$productsPolicy, 'onEvent']
+        );
+
+        $controller = new ProductsController($baseConfig, $eventDispatcher);
+
+        return $controller;
     }
 
     /*public function onDispatch(AscmvcEvent $event)
@@ -55,15 +84,17 @@ class ProductController extends Controller implements AscmvcControllerFactoryInt
         $this->view['saved'] = 0;
 
         $this->view['error'] = 0;
-    }
-    
-    protected function readProducts($id = null)
-    {
-        if ($id == null) {
-            return $this->crudService->read();
-        } else {
-            return $this->crudService->read($id);
-        }
+
+        $app = $event->getApplication();
+
+        $sharedEventManager = $this->eventDispatcher->getSharedManager();
+
+        $sharedEventManager->attach(
+            '*',
+            ProductsController::UPDATE_COMPLETED,
+            [$app, 'updatePostDispatchControllerOutput'],
+            1
+        );
     }
 
     protected function hydrateArray(Products $object)
@@ -79,7 +110,17 @@ class ProductController extends Controller implements AscmvcControllerFactoryInt
 
     public function indexAction($vars = null)
     {
-        $results = $this->readProducts();
+        $event = new Event(ProductsController::READ_REQUESTED);
+
+        /*
+         * Possible to retrieve one single entity from the database by setting the
+         * event's 'id' parameter.
+         */
+        // $event->setParam('id', 4);
+
+        $resultCollection = $this->eventDispatcher->dispatch($event);
+
+        $results = $resultCollection->pop();
 
         if (is_object($results)) {
             $results = [$this->hydrateArray($results)];
@@ -94,9 +135,9 @@ class ProductController extends Controller implements AscmvcControllerFactoryInt
         $this->view['bodyjs'] = 1;
 
         $this->view['results'] = $results;
-        
-        $this->view['templatefile'] = 'product_index';
-        
+
+        $this->view['templatefile'] = 'products_index';
+
         return $this->view;
     }
 
@@ -118,7 +159,7 @@ class ProductController extends Controller implements AscmvcControllerFactoryInt
 
         $this->view['bodyjs'] = 1;
         
-        $this->view['templatefile'] = 'product_add_form';
+        $this->view['templatefile'] = 'products_add_form';
         
         return $this->view;
     }
@@ -138,28 +179,34 @@ class ProductController extends Controller implements AscmvcControllerFactoryInt
                 $productArray['image'] = (string) $vars['post']['imageoriginal'];
             }
 
-            if ($this->crudService->update($productArray)) {
-                $this->view['saved'] = 1;
-            } else {
-                $this->view['error'] = 1;
-            }
-        }
+            $event = new Event(ProductsController::UPDATE_REQUESTED);
 
-        $results = $this->readProducts($vars['get']['id']);
+            $event->setParam('argv', $productArray);
 
-        if (is_object($results)) {
-            $results = [$this->hydrateArray($results)];
+            $this->eventDispatcher->dispatch($event);
         } else {
-            for ($i = 0; $i < count($results); $i++) {
-                $results[$i] = $this->hydrateArray($results[$i]);
-            }
-        }
+            $event = new Event(ProductsController::READ_REQUESTED);
 
-        $this->view['results'] = $results;
+            $event->setParam('id', $vars['get']['id']);
+
+            $resultCollection = $this->eventDispatcher->dispatch($event);
+
+            $results = $resultCollection->pop();
+
+            if (is_object($results)) {
+                $results = [$this->hydrateArray($results)];
+            } else {
+                for ($i = 0; $i < count($results); $i++) {
+                    $results[$i] = $this->hydrateArray($results[$i]);
+                }
+            }
+
+            $this->view['results'] = $results;
+        }
 
         $this->view['bodyjs'] = 1;
         
-        $this->view['templatefile'] = 'product_edit_form';
+        $this->view['templatefile'] = 'products_edit_form';
         
         return $this->view;
     }
@@ -175,7 +222,7 @@ class ProductController extends Controller implements AscmvcControllerFactoryInt
 			$this->view['error'] = 1;
 		}
 		
-		$this->view['templatefile'] = 'product_delete';
+		$this->view['templatefile'] = 'products_delete';
         
         return $this->view;
     }

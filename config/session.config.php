@@ -3,9 +3,9 @@
 $baseConfig['session'] = [
     'enabled' => true,
     'psr6_cache_pool' => \Ascmvc\Session\Cache\DoctrineCacheItemPool::class,
-    'doctrine_cache_driver' => \Doctrine\Common\Cache\FilesystemCache::class,
+    //'doctrine_cache_driver' => \Doctrine\Common\Cache\FilesystemCache::class,
     //'doctrine_cache_driver' => \Doctrine\Common\Cache\XcacheCache::class,
-    //'doctrine_cache_driver' => \Doctrine\Common\Cache\RedisCache::class,
+    'doctrine_cache_driver' => \Doctrine\Common\Cache\RedisCache::class,
     //'doctrine_cache_driver' => \Doctrine\Common\Cache\MemcachedCache::class,
     //'doctrine_cache_driver' => \Doctrine\Common\Cache\MemcacheCache::class,
     'doctrine_filesystem_cache_directory' => BASEDIR . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR,
