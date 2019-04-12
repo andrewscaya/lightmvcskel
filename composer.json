@@ -20,7 +20,7 @@
     ],
     "require": {
         "php": "^7.1",
-        "lightmvc/ascmvc": "2.1.0"
+        "lightmvc/ascmvc": "3.0.0"
     },
     "require-dev": {
         "phpunit/phpunit": "^4.8",
@@ -30,9 +30,13 @@
     "autoload": {
         "psr-4": {
             "Application\\Models\\": "models/Application/Models",
+            "Application\\Log\\": "models/Application/Log",
             "Application\\Middleware\\": "middleware/Application/Middleware",
+            "Application\\Commands\\": "controllers/Application/Commands",
             "Application\\Controllers\\": "controllers/Application/Controllers",
-            "Application\\Services\\": "controllers/Application/Services",
+            "Application\\Events\\": "controllers/Application/Events",
+            "Application\\Policies\\": "controllers/Application/Policies",
+            "Application\\ReadModels\\": "controllers/Application/ReadModels",
             "Specialmodule\\Controllers\\": "controllers/Specialmodule/Controllers"
         }
     },

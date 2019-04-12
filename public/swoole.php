@@ -181,7 +181,10 @@ $http->on("request", function ($request, $response) use ($static) {
     }
 
     $finalResponse = $app->getResponse();
+
     $headers = $finalResponse->getHeaders();
+
+    unset($app);
 
     foreach ($headers as $header => $value) {
         $response->header($header, $value[0]);

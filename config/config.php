@@ -4,10 +4,14 @@ $baseConfig['env'] = 'production'; // 'development' or 'production'
 
 $baseConfig['appName'] = 'The LightMVC Framework Skeleton Application';
 
+// Required configuration
+require 'events.config.php';
+
 require 'routes.config.php';
 
 require 'view.config.php';
 
-require 'middleware.config.php';
+// Optional configuration
+include 'middleware.config.php';
 
-require 'session.config.php';
+include 'session.config.php';

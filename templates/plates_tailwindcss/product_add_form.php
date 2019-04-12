@@ -18,6 +18,7 @@
                   <h1 class="text-2xl md:text-4xl text-grey-darkest mb-3">Add new product</h1>
               </div>
 
+              <?php if ($view['saved'] !== 1 && $view['error'] !== 1): ?>
               <form class="w-full max-w-md" method="post" action="" enctype="multipart/form-data" id="formadd1">
                   <div class="flex flex-wrap -mx-3 mb-6">
                       <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
@@ -46,6 +47,7 @@
                       Save
                   </button>
               </form>
+              <?php endif ?>
 
               <?php if ($view['saved'] === 1): ?>
               <div class="bg-green-lightest border border-green-light text-green-dark px-4 py-3 rounded relative" role="alert">

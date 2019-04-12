@@ -16,6 +16,7 @@
         <div id="pageBodyProducts">
           <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
               <h1>Add new product</h1>
+              <?php if ($view['saved'] !== 1 && $view['error'] !== 1): ?>
               <form method="post" action="" enctype="multipart/form-data" id="formadd1">
                   <label for="name">Name</label><br />
                   <input type="text" name="name" id="name" size="30" /><br />
@@ -29,6 +30,7 @@
                       Save
                   </button>
               </form>
+              <?php endif ?>
               <?php if ($view['saved'] === 1): ?>
                   <div class="alert-success"><p>The product has been saved!</p></div>
               <?php endif ?>

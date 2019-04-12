@@ -15,7 +15,7 @@ class ProductsRepository extends EntityRepository
         return $this->findBy([], ['id' => 'ASC']);
     }
 
-    public function save(array $productArray, $products = null)
+    public function save(array $productArray, Products $products = null)
     {
         $this->products = $this->setData($productArray, $products);
 
@@ -23,10 +23,8 @@ class ProductsRepository extends EntityRepository
             $this->_em->persist($this->products);
             $this->_em->flush();
         } catch (\Exception $e) {
-            return false;
+            throw new \Exception('Database not available');
         }
-
-        return true;
     }
 
     public function delete(Products $products)
@@ -37,10 +35,8 @@ class ProductsRepository extends EntityRepository
             $this->_em->remove($this->products);
             $this->_em->flush();
         } catch (\Exception $e) {
-            return false;
+            throw new \Exception('Database not available');
         }
-
-        return true;
     }
 
     public function setData(array $productArray, Products $products = null)
