@@ -11,7 +11,7 @@ class SessionMiddleware implements MiddlewareInterface
 {
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
-        $_SERVER['sessionmiddleware'] = get_class($this);
+        $_SERVER['middleware']['session'] = get_class($this);
 
         return $handler->handle($request);
     }
