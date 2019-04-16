@@ -29,7 +29,7 @@ $baseConfig['view'] = [
         ],
     'js' =>
         [
-            $baseConfig['URLBASEADDR'] . 'js/jquery.min.js',
+            $baseConfig['URLBASEADDR'] . 'js/jquery-3.3.1.min.js',
             $baseConfig['URLBASEADDR'] . 'js/bootstrap.min.js',
 
         ],

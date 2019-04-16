@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 2.0.4 (2019-04-16)
+
+- Fixes an issue with broken links in the View.
+
 ## 2.0.3 (2019-04-10)
 
 - Modifies the sample configuration file for NGINX.
