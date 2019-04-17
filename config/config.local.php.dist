@@ -28,10 +28,14 @@ $baseConfig['doctrine']['ORM']['dem1'] = [
     'dbname'   => 'DATABASE',
 ];*/
 
+// Required configuration
+require 'events.config.php';
+
 require 'routes.config.php';
 
 require 'view.config.php';
 
-require 'middleware.config.php';
+// Optional configuration
+include 'middleware.config.php';
 
-require 'session.config.php';
+include 'session.config.php';

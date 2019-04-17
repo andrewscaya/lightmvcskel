@@ -14,7 +14,7 @@ $baseConfig['routes'] = [
     2 => [
         ['GET', 'POST'],
         '/products[/{action}[/{id:[0-9]+}]]',
-        'product',
+        'products',
     ],
     3 => [
         'GET',

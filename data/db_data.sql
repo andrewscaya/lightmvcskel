@@ -94,6 +94,23 @@ LOCK TABLES `products` WRITE;
 INSERT INTO `products` VALUES (1,'Computer',100.99,'Laptop','computer_laptop.png'),(2,'Diskettes',1.99,'3.5 Diskettes','computer_3.5_diskettes.png'),(3,'LCD Monitor',150.99,'Monitor','computer_lcd_monitor.png'),(4,'HP Computer',1200.99,'HP Computer','computer_hp.png'),(5,'Computer relic',20000.00,'Old Compaq Computer','computer_original_compaq.png');
 /*!40000 ALTER TABLE `products` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Table structure for table `eventlog`
+--
+
+DROP TABLE IF EXISTS `eventlog`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `eventlog` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(150) NOT NULL,
+  `parameters` varchar(5000) NOT NULL,
+  `created` TIMESTAMP,
+  `occurred` TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
