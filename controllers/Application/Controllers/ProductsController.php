@@ -42,8 +42,8 @@ class ProductsController extends Controller implements AscmvcControllerFactoryIn
         // Subscribing this controller (Aggregate Root) and the Event Sourcing Logger.
         $eventDispatcher->setIdentifiers(
             [
-                EventLogger::class,
                 ProductsController::class,
+                EventLogger::class,
             ]
         );
 
