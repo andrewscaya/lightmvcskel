@@ -12,7 +12,13 @@ class ProductsRepository extends EntityRepository
 
     public function findAll()
     {
-        return $this->findBy([], ['id' => 'ASC']);
+        $results = $this->findBy([], ['id' => 'ASC']);
+
+        for ($i = 0; $i < count($results); $i++) {
+            $results[$i] = $this->hydrateArray($results[$i]);
+        }
+
+        return $results;
     }
 
     public function save(array $productArray, Products $products = null)
@@ -37,6 +43,17 @@ class ProductsRepository extends EntityRepository
         } catch (\Exception $e) {
             throw new \Exception('Database not available');
         }
+    }
+
+    public function hydrateArray(Products $products)
+    {
+        $array['id'] = $products->getId();
+        $array['name'] = $products->getName();
+        $array['price'] = $products->getPrice();
+        $array['description'] = $products->getDescription();
+        $array['image'] = $products->getImage();
+
+        return $array;
     }
 
     public function setData(array $productArray, Products $products = null)

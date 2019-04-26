@@ -25,3 +25,14 @@ $baseConfig['eventlog'] = [
         ],
     ],
 ];
+
+$baseConfig['async_process_bin'] = $baseConfig['BASEDIR']
+    . DIRECTORY_SEPARATOR
+    . 'bin'
+    . DIRECTORY_SEPARATOR
+    . 'process.php';
+
+$baseConfig['async_commands'] = [
+    \Application\Commands\ReadProductsCommand::class,
+    \Application\Commands\WriteProductsCommand::class,
+];

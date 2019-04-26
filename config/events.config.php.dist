@@ -9,7 +9,7 @@ $baseConfig['events'] = [
 ];
 
 $baseConfig['eventlog'] = [
-    'enabled' => false,
+    'enabled' => true,
     'doctrine' => [
         'log_conn_name' => 'dem1',
         'entity_name' => \Application\Log\Entity\EventLog::class,
@@ -24,4 +24,15 @@ $baseConfig['eventlog'] = [
             //\Ascmvc\EventSourcing\Event\AggregateEvent::class,
         ],
     ],
+];
+
+$baseConfig['async_process_bin'] = $baseConfig['BASEDIR']
+    . DIRECTORY_SEPARATOR
+    . 'bin'
+    . DIRECTORY_SEPARATOR
+    . 'process.php';
+
+$baseConfig['async_commands'] = [
+    \Application\Commands\ReadProductsCommand::class,
+    \Application\Commands\WriteProductsCommand::class,
 ];

@@ -20,7 +20,8 @@
     ],
     "require": {
         "php": "^7.2",
-        "lightmvc/ascmvc": "3.0.0"
+        "lightmvc/ascmvc": "3.0.0",
+        "react/react": "^0.4.2"
     },
     "require-dev": {
         "phpunit/phpunit": "^4.8",

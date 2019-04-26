@@ -2,46 +2,62 @@
 
 namespace Application\Commands;
 
-use Application\Controllers\ProductsController;
-use Application\Events\ReadProductsCompleted;
 use Application\Models\Entity\Products;
 use Application\Models\Repository\ProductsRepository;
-use Ascmvc\EventSourcing\AggregateImmutableValueObject;
+use Ascmvc\AbstractApp;
 use Doctrine\ORM\Mapping\ClassMetadata;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
+use Symfony\Component\Console\Output\OutputInterface;
 
 class ReadProductsCommand extends ProductsCommand
 {
-    public function execute()
+    protected static $defaultName = 'products:read';
+
+    public function __construct(AbstractApp $webapp)
     {
-        $args = $this->aggregateValueObject->getProperties();
+        // you *must* call the parent constructor
+        parent::__construct($webapp);
+    }
+
+    protected function configure()
+    {
+        $this
+            ->setName('products:read')
+            ->setDescription("Query Doctrine for 'Products' entities.");
+        $this
+            // configure options
+            ->addOption('values', null, InputOption::VALUE_REQUIRED, 'Specify a serialized value object array to use.');
+    }
+
+    protected function execute(InputInterface $input, OutputInterface $output)
+    {
+        $connName = $this->getWebapp()->getBaseConfig()['events']['read_conn_name'];
+
+        $entityManager = $this->getWebapp()->getServiceManager()[$connName];
+
+        $serializedAggregateValueObjectProperties = $input->getOption('values');
+
+        $args = unserialize($serializedAggregateValueObjectProperties);
 
         $productsRepository = new ProductsRepository(
-            $this->entityManager,
+            $entityManager,
             new ClassMetadata(Products::class)
         );
 
         try {
             if (isset($args['id'])) {
-                $results = $productsRepository->find($args['id']);
+                $result = $productsRepository->find($args['id']);
+                $results[] = $productsRepository->hydrateArray($result);
             } else {
                 $results = $productsRepository->findAll();
             }
         } catch (\Exception $e) {
-            return;
+            return 1;
         }
 
-        if (is_object($results)) {
-            $results = [$results];
-        }
+        $outputValues = serialize($results);
 
-        $aggregateValueObject = new AggregateImmutableValueObject($results);
-
-        $event = new ReadProductsCompleted(
-            $aggregateValueObject,
-            ProductsController::class,
-            ProductsController::READ_COMPLETED
-        );
-
-        $this->eventDispatcher->dispatch($event);
+        $output->writeln($outputValues);
     }
 }

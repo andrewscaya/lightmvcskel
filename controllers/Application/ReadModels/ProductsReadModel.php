@@ -2,15 +2,21 @@
 
 namespace Application\ReadModels;
 
-use Application\Commands\ReadProductsCommand;
+use Application\Events\ReadProductsCompleted;
 use Application\Models\Entity\Products;
 use Application\Models\Traits\DoctrineTrait;
+use Ascmvc\EventSourcing\AggregateImmutableValueObject;
+use Ascmvc\EventSourcing\AggregateReadModel;
+use Ascmvc\EventSourcing\Event\AggregateEvent;
 use Ascmvc\EventSourcing\Event\Event;
 use Ascmvc\EventSourcing\EventDispatcher;
-use Ascmvc\EventSourcing\ReadModel;
+use Symfony\Component\Process\Exception\ProcessFailedException;
+use Symfony\Component\Process\Process;
 
-class ProductsReadModel extends ReadModel
+class ProductsReadModel extends AggregateReadModel
 {
+    const READ_COMPLETED = 'products_read_completed';
+
     use DoctrineTrait;
 
     protected $id;
@@ -18,6 +24,8 @@ class ProductsReadModel extends ReadModel
     protected $products;
 
     protected $productsRepository;
+
+    protected $commandProcess;
 
     protected function __construct(EventDispatcher $eventDispatcher, Products $products)
     {
@@ -33,22 +41,61 @@ class ProductsReadModel extends ReadModel
         return new self($eventDispatcher, $productsEntity);
     }
 
-    public function onEvent(Event $event)
+    public function __invoke(AggregateEvent $event)
     {
-        $connName = $event->getApplication()->getBaseConfig()['events']['read_conn_name'];
+        if (is_null($this->commandProcess)) {
+            parent::onAggregateEvent($event);
 
-        $entityManager = $event->getApplication()->getServiceManager()[$connName];
+            $asyncBus = $event->getApplication()->getBaseConfig()['async_process_bin'];
 
-        $productsCommand = new ReadProductsCommand(
-            $event->getAggregateValueObject(),
-            $entityManager,
-            $this->eventDispatcher
-        );
+            $values = $event->getAggregateValueObject()->serialize();
 
-        if (!is_null($productsCommand)) {
-            $productsCommand->execute();
+            $productsCommand = 'php ' . $asyncBus . ' products:read --values ' . "'$values'";
+
+            $this->commandProcess = new Process($productsCommand);
+
+            $this->commandProcess->setTty($this->commandProcess->isTtySupported());
+
+            $this->commandProcess->setTimeout(null);
+
+            try {
+                $this->commandProcess->mustRun();
+            } catch (ProcessFailedException $e) {
+                throw new \Exception($productsCommand . ' failed');
+            }
+
+            // Can be used for callback architecture style.
+            //$this->commandProcess->start();
+            //$this->commandProcess->wait();
         }
 
+        while ($this->commandProcess->isRunning()) {
+            yield true;
+        }
+
+        $processStdout = $this->commandProcess->getOutput();
+        //$processStderr = $this->commandProcess->getErrorOutput();
+
+        $aggregateValueObject = new AggregateImmutableValueObject();
+
+        $aggregateValueObject = $aggregateValueObject->unserialize($processStdout);
+
+        $event = new ReadProductsCompleted(
+            $aggregateValueObject,
+            $this->aggregateRootName,
+            ProductsReadModel::READ_COMPLETED
+        );
+
+        $this->eventDispatcher->dispatch($event);
+
         return;
+    }
+
+    public function onAggregateEvent(AggregateEvent $event)
+    {
+    }
+
+    public function onEvent(Event $event)
+    {
     }
 }
