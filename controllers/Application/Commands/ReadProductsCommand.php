@@ -38,7 +38,11 @@ class ReadProductsCommand extends ProductsCommand
 
         $serializedAggregateValueObjectProperties = $input->getOption('values');
 
-        $args = unserialize($serializedAggregateValueObjectProperties);
+        if (!empty($serializedAggregateValueObjectProperties)) {
+            $args = unserialize($serializedAggregateValueObjectProperties);
+        } else {
+            $args = [];
+        }
 
         $productsRepository = new ProductsRepository(
             $entityManager,
@@ -48,7 +52,12 @@ class ReadProductsCommand extends ProductsCommand
         try {
             if (isset($args['id'])) {
                 $result = $productsRepository->find($args['id']);
-                $results[] = $productsRepository->hydrateArray($result);
+
+                if (!is_null($result)) {
+                    $results[] = $productsRepository->hydrateArray($result);
+                } else {
+                    $results = [];
+                }
             } else {
                 $results = $productsRepository->findAll();
             }
@@ -56,7 +65,11 @@ class ReadProductsCommand extends ProductsCommand
             return 1;
         }
 
-        $outputValues = serialize($results);
+        if (!empty($results)) {
+            $outputValues = serialize($results);
+        } else {
+            $outputValues = '';
+        }
 
         $output->writeln($outputValues);
     }

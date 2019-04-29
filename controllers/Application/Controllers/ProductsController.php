@@ -14,6 +14,7 @@ use Ascmvc\EventSourcing\EventDispatcher;
 use Ascmvc\EventSourcing\Event\AggregateEvent;
 use Ascmvc\Mvc\AscmvcEvent;
 use Pimple\Container;
+use Zend\Diactoros\Response;
 
 class ProductsController extends AggregateRootController implements AggregateEventListenerInterface
 {
@@ -141,8 +142,10 @@ class ProductsController extends AggregateRootController implements AggregateEve
 
     public function indexAction($vars = null)
     {
-        if (isset($this->results)) {
+        if (isset($this->results) && !empty($this->results)) {
             $this->view['results'] = $this->results;
+        } else {
+            $this->view['results']['nodata'] = 'No results';
         }
 
         $this->view['bodyjs'] = 1;
@@ -177,6 +180,10 @@ class ProductsController extends AggregateRootController implements AggregateEve
     {
         if (isset($this->params['saved'])) {
             $this->view['saved'] = $this->params['saved'];
+        }
+
+        if (isset($this->params['error'])) {
+            $this->view['error'] = $this->params['error'];
         }
 
         $this->view['bodyjs'] = 1;
@@ -232,7 +239,16 @@ class ProductsController extends AggregateRootController implements AggregateEve
         if (isset($this->params['saved'])) {
             $this->view['saved'] = $this->params['saved'];
         } else {
-            $this->view['results'] = $this->results;
+            if (isset($this->results) && !empty($this->results)) {
+                $this->view['results'] = $this->results;
+            } else {
+                $response = new Response();
+                $response->getBody()->write('404 Not Found');
+                $response = $response
+                    ->withStatus(404);
+
+                return $response;
+            }
         }
 
         $this->view['bodyjs'] = 1;
@@ -262,6 +278,10 @@ class ProductsController extends AggregateRootController implements AggregateEve
     {
         if (isset($this->params['saved'])) {
             $this->view['saved'] = $this->params['saved'];
+        }
+
+        if (isset($this->params['error'])) {
+            $this->view['error'] = $this->params['error'];
         }
 		
 		$this->view['templatefile'] = 'products_delete';

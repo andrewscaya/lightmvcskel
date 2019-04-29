@@ -7,11 +7,10 @@ use Application\Events\WriteProductsCompleted;
 use Application\Models\Traits\DoctrineTrait;
 use Ascmvc\EventSourcing\AggregateImmutableValueObject;
 use Ascmvc\EventSourcing\AggregatePolicy;
+use Ascmvc\EventSourcing\CommandRunner;
 use Ascmvc\EventSourcing\Event\AggregateEvent;
 use Ascmvc\EventSourcing\Event\Event;
 use Ascmvc\EventSourcing\EventDispatcher;
-use Symfony\Component\Process\Exception\ProcessFailedException;
-use Symfony\Component\Process\Process;
 
 class ProductsPolicy extends AggregatePolicy
 {
@@ -29,7 +28,7 @@ class ProductsPolicy extends AggregatePolicy
 
     protected $productsRepository;
 
-    protected $commandProcess;
+    protected $commandRunner;
 
     public static function getInstance(EventDispatcher $eventDispatcher)
     {
@@ -38,14 +37,10 @@ class ProductsPolicy extends AggregatePolicy
 
     public function __invoke(AggregateEvent $event)
     {
-        if (is_null($this->commandProcess)) {
-            parent::onAggregateEvent($event);
+        if (is_null($this->commandRunner)) {
+            $this->onAggregateEvent($event);
 
-            $asyncBus = $event->getApplication()->getBaseConfig()['async_process_bin'];
-
-            $values = $event->getAggregateValueObject()->serialize();
-
-            $values = escapeshellarg($values);
+            $app = $event->getApplication();
 
             $name = $event->getName();
 
@@ -59,57 +54,61 @@ class ProductsPolicy extends AggregatePolicy
                 $execute = 'delete';
             }
 
-            $productsCommand = 'php ' . $asyncBus . ' products:write ' . $execute . ' --values ' . "'$values'";
+            $valuesArray = $event->getAggregateValueObject()->getProperties();
 
-            $this->commandProcess = new Process($productsCommand);
+            $arguments = [];
 
-            $this->commandProcess->setTty($this->commandProcess->isTtySupported());
+            if (!empty($valuesArray)) {
+                $values = $event->getAggregateValueObject()->serialize();
 
-            $this->commandProcess->setTimeout(null);
-
-            try {
-                $this->commandProcess->mustRun();
-            } catch (ProcessFailedException $e) {
-                die($e->getMessage());
-                throw new \Exception($productsCommand . ' failed');
+                $arguments = [
+                    'execute' => $execute,
+                    '--values' => $values,
+                ];
             }
 
-            // Can be used for callback architecture style.
-            //$this->commandProcess->start();
-            //$this->commandProcess->wait();
+            $swoole = $app->isSwoole();
+
+            $this->commandRunner = new CommandRunner($app, 'products:write', $arguments, $swoole);
         }
 
-        while ($this->commandProcess->isRunning()) {
+        while ($this->commandRunner->start()) {
             yield true;
         }
 
+        $processStdout = $this->commandRunner->getOutput();
+        //$processStderr = $this->commandProcess->getError();
+
+        if (!empty($processStdout)) {
+            $processStdoutArray = unserialize($processStdout);
+
+            if (isset($processStdoutArray['data'])) {
+                $valueObjectProperties = $processStdoutArray['data'];
+            }
+        } else {
+            $valueObjectProperties = [];
+        }
+
         $name = $event->getName();
-
-        $processStdout = $this->commandProcess->getOutput();
-        //$processStderr = $this->commandProcess->getErrorOutput();
-
-        $processStdoutArray = unserialize($processStdout);
-
-        $valueObjectProperties = $processStdoutArray['data'];
 
         $aggregateValueObject = new AggregateImmutableValueObject($valueObjectProperties);
 
         if ($name === ProductsController::CREATE_REQUESTED) {
             $event = new WriteProductsCompleted(
                 $aggregateValueObject,
-                $this->aggregateRootName,
+                $event->getAggregateRootName(),
                 ProductsPolicy::CREATE_COMPLETED
             );
         } elseif ($name === ProductsController::UPDATE_REQUESTED) {
             $event = new WriteProductsCompleted(
                 $aggregateValueObject,
-                $this->aggregateRootName,
+                $event->getAggregateRootName(),
                 ProductsPolicy::UPDATE_COMPLETED
             );
         } elseif ($name === ProductsController::DELETE_REQUESTED) {
             $event = new WriteProductsCompleted(
                 $aggregateValueObject,
-                $this->aggregateRootName,
+                $event->getAggregateRootName(),
                 ProductsPolicy::DELETE_COMPLETED
             );
         }
@@ -125,6 +124,7 @@ class ProductsPolicy extends AggregatePolicy
 
     public function onAggregateEvent(AggregateEvent $event)
     {
+        parent::onAggregateEvent($event);
     }
 
     public function onEvent(Event $event)
