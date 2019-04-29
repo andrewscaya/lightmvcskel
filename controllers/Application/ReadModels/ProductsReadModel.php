@@ -50,6 +50,8 @@ class ProductsReadModel extends AggregateReadModel
 
             $values = $event->getAggregateValueObject()->serialize();
 
+            $values = escapeshellarg($values);
+
             $productsCommand = 'php ' . $asyncBus . ' products:read --values ' . "'$values'";
 
             $this->commandProcess = new Process($productsCommand);

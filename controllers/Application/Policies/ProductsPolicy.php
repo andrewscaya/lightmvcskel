@@ -45,6 +45,8 @@ class ProductsPolicy extends AggregatePolicy
 
             $values = $event->getAggregateValueObject()->serialize();
 
+            $values = escapeshellarg($values);
+
             $name = $event->getName();
 
             $execute = '';
