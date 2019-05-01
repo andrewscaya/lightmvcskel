@@ -9,7 +9,7 @@ $baseConfig['events'] = [
 ];
 
 $baseConfig['eventlog'] = [
-    'enabled' => false,
+    'enabled' => true,
     'doctrine' => [
         'log_conn_name' => 'dem1',
         'entity_name' => \Application\Log\Entity\EventLog::class,

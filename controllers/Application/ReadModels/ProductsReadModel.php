@@ -2,15 +2,20 @@
 
 namespace Application\ReadModels;
 
-use Application\Commands\ReadProductsCommand;
+use Application\Events\ReadProductsCompleted;
 use Application\Models\Entity\Products;
 use Application\Models\Traits\DoctrineTrait;
+use Ascmvc\EventSourcing\AggregateImmutableValueObject;
+use Ascmvc\EventSourcing\AggregateReadModel;
+use Ascmvc\EventSourcing\CommandRunner;
+use Ascmvc\EventSourcing\Event\AggregateEvent;
 use Ascmvc\EventSourcing\Event\Event;
 use Ascmvc\EventSourcing\EventDispatcher;
-use Ascmvc\EventSourcing\ReadModel;
 
-class ProductsReadModel extends ReadModel
+class ProductsReadModel extends AggregateReadModel
 {
+    const READ_COMPLETED = 'products_read_completed';
+
     use DoctrineTrait;
 
     protected $id;
@@ -18,6 +23,8 @@ class ProductsReadModel extends ReadModel
     protected $products;
 
     protected $productsRepository;
+
+    protected $commandRunner;
 
     protected function __construct(EventDispatcher $eventDispatcher, Products $products)
     {
@@ -33,22 +40,60 @@ class ProductsReadModel extends ReadModel
         return new self($eventDispatcher, $productsEntity);
     }
 
-    public function onEvent(Event $event)
+    public function __invoke(AggregateEvent $event)
     {
-        $connName = $event->getApplication()->getBaseConfig()['events']['read_conn_name'];
+        if (is_null($this->commandRunner)) {
+            $this->onAggregateEvent($event);
 
-        $entityManager = $event->getApplication()->getServiceManager()[$connName];
+            $app = $event->getApplication();
 
-        $productsCommand = new ReadProductsCommand(
-            $event->getAggregateValueObject(),
-            $entityManager,
-            $this->eventDispatcher
-        );
+            $valuesArray = $event->getAggregateValueObject()->getProperties();
 
-        if (!is_null($productsCommand)) {
-            $productsCommand->execute();
+            $arguments = [];
+
+            if (!empty($valuesArray)) {
+                $values = $event->getAggregateValueObject()->serialize();
+
+                $arguments = [
+                    '--values' => $values,
+                ];
+            }
+
+            $swoole = $app->isSwoole();
+
+            $this->commandRunner = new CommandRunner($app, 'products:read', $arguments, $swoole);
         }
 
+        while ($this->commandRunner->start()) {
+            yield true;
+        }
+
+        $processStdout = $this->commandRunner->getOutput();
+        //$processStderr = $this->commandProcess->getError();
+
+        $aggregateValueObject = new AggregateImmutableValueObject();
+
+        if (!empty(trim($processStdout))) {
+            $aggregateValueObject = $aggregateValueObject->unserialize($processStdout);
+        }
+
+        $event = new ReadProductsCompleted(
+            $aggregateValueObject,
+            $event->getAggregateRootName(),
+            ProductsReadModel::READ_COMPLETED
+        );
+
+        $this->eventDispatcher->dispatch($event);
+
         return;
+    }
+
+    public function onAggregateEvent(AggregateEvent $event)
+    {
+        parent::onAggregateEvent($event);
+    }
+
+    public function onEvent(Event $event)
+    {
     }
 }

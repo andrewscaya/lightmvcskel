@@ -128,7 +128,7 @@ $http->on("request", function ($request, $response) use ($static) {
         return;
     }
 
-    $app = new Ascmvc\Mvc\App();
+    $app = new Ascmvc\Mvc\App(true);
 
     $baseConfig = $app->boot();
 

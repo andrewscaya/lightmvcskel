@@ -2,32 +2,28 @@
 
 namespace Application\Commands;
 
-use Ascmvc\EventSourcing\AggregateImmutableValueObject;
-use Ascmvc\EventSourcing\Command;
-use Ascmvc\EventSourcing\EventDispatcher;
-use Doctrine\ORM\EntityManager;
+use Ascmvc\AbstractApp;
+use Ascmvc\EventSourcing\AsyncCommand;
+use Symfony\Component\Console\Exception\LogicException;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
 
-class ProductsCommand extends Command
+class ProductsCommand extends AsyncCommand
 {
-    protected $aggregateValueObject;
+    protected static $defaultName;
 
-    protected $entityManager;
-
-    public function __construct(
-        AggregateImmutableValueObject $aggregateValueObject,
-        EntityManager $entityManager,
-        EventDispatcher $eventDispatcher,
-        array $argv = []
-    )
+    public function __construct(AbstractApp $webapp)
     {
-        parent::__construct($eventDispatcher, $argv);
-
-        $this->aggregateValueObject = $aggregateValueObject;
-
-        $this->entityManager = $entityManager;
+        // you *must* call the parent constructor
+        parent::__construct($webapp);
     }
 
-    public function execute()
+    protected function configure()
     {
+    }
+
+    protected function execute(InputInterface $input, OutputInterface $output)
+    {
+        throw new LogicException('You must override the execute() method in the concrete command class.');
     }
 }

@@ -31,11 +31,13 @@ $baseConfig['doctrine']['ORM']['dem1'] = [
 // Required configuration
 require 'events.config.php';
 
+require 'commands.config.php';
+
 require 'routes.config.php';
 
 require 'view.config.php';
 
+require 'session.config.php';
+
 // Optional configuration
 include 'middleware.config.php';
-
-include 'session.config.php';

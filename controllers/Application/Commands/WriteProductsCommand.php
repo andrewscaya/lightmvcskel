@@ -2,35 +2,63 @@
 
 namespace Application\Commands;
 
-use Application\Controllers\ProductsController;
-use Application\Events\WriteProductsCompleted;
 use Application\Models\Entity\Products;
 use Application\Models\Repository\ProductsRepository;
-use Ascmvc\EventSourcing\AggregateImmutableValueObject;
+use Ascmvc\AbstractApp;
 use Doctrine\ORM\Mapping\ClassMetadata;
+use Symfony\Component\Console\Input\InputArgument;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
+use Symfony\Component\Console\Output\OutputInterface;
 
 class WriteProductsCommand extends ProductsCommand
 {
-    public function execute()
-    {
-        $name = $this->argv['name'];
+    protected static $defaultName = 'products:write';
 
-        $args = $this->aggregateValueObject->getProperties();
+    public function __construct(AbstractApp $webapp)
+    {
+        // you *must* call the parent constructor
+        parent::__construct($webapp);
+    }
+
+    protected function configure()
+    {
+        $this
+            ->setName('products:write')
+            ->setDescription("Write 'Products' entities using Doctrine.");
+        $this
+            // configure arguments
+            ->addArgument('execute', InputArgument::REQUIRED, "[create], [update] or [delete] the 'Products' entities.")
+            // configure options
+            ->addOption('values', null, InputOption::VALUE_REQUIRED, 'Specify a serialized value object array to use.');
+    }
+
+    protected function execute(InputInterface $input, OutputInterface $output)
+    {
+        $name = $input->getArgument('execute');
+
+        $connName = $this->getWebapp()->getBaseConfig()['events']['read_conn_name'];
+
+        $entityManager = $this->getWebapp()->getServiceManager()[$connName];
+
+        $serializedAggregateValueObjectProperties = $input->getOption('values');
+
+        $args = unserialize($serializedAggregateValueObjectProperties);
 
         $productsRepository = new ProductsRepository(
-            $this->entityManager,
+            $entityManager,
             new ClassMetadata(Products::class)
         );
 
         $values = [];
 
         try {
-            if ($name === ProductsController::CREATE_REQUESTED) {
+            if ($name ===   'create') {
                 $productsRepository->save($args);
-            } elseif ($name === ProductsController::UPDATE_REQUESTED) {
-                $products = $this->entityManager->find(Products::class, $args['id']);
+            } elseif ($name === 'update') {
+                $products = $entityManager->find(Products::class, $args['id']);
 
-                $values['pre'] = [
+                $values['data']['pre'] = [
                     'id' => $products->getId(),
                     'name' => $products->getName(),
                     'price' => $products->getPrice(),
@@ -39,44 +67,22 @@ class WriteProductsCommand extends ProductsCommand
                 ];
 
                 $productsRepository->save($args, $products);
-            } elseif ($name === ProductsController::DELETE_REQUESTED) {
+            } elseif ($name === 'delete') {
                 if (isset($args['id'])) {
-                    $products = $this->entityManager->find(Products::class, $args['id']);
+                    $products = $entityManager->find(Products::class, $args['id']);
                     $productsRepository->delete($products);
                 }
             }
 
-            $params = ['saved' => 1];
+            $values['data']['post'] = $args;
 
-            $values['post'] = $args;
-
-            $aggregateValueObject = new AggregateImmutableValueObject($values);
-
-            if ($name === ProductsController::CREATE_REQUESTED) {
-                $event = new WriteProductsCompleted(
-                    $aggregateValueObject,
-                    ProductsController::class,
-                    ProductsController::CREATE_COMPLETED
-                );
-            } elseif ($name === ProductsController::UPDATE_REQUESTED) {
-                $event = new WriteProductsCompleted(
-                    $aggregateValueObject,
-                    ProductsController::class,
-                    ProductsController::UPDATE_COMPLETED
-                );
-            } elseif ($name === ProductsController::DELETE_REQUESTED) {
-                $event = new WriteProductsCompleted(
-                    $aggregateValueObject,
-                    ProductsController::class,
-                    ProductsController::DELETE_COMPLETED
-                );
-            }
-
-            $event->setParams($params);
+            $values['params']['saved'] = 1;
         } catch (\Exception $e) {
-            $event->setParam('error', 1);
+            $values['params']['error'] = 1;
         }
 
-        $this->eventDispatcher->dispatch($event);
+        $outputValues = serialize($values);
+
+        $output->writeln($outputValues);
     }
 }

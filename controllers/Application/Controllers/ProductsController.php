@@ -4,20 +4,19 @@ namespace Application\Controllers;
 
 use Application\Events\ReadProductsCompleted;
 use Application\Events\WriteProductsCompleted;
-use Application\Models\Entity\Products;
 use Application\Policies\ProductsPolicy;
 use Application\ReadModels\ProductsReadModel;
-use Ascmvc\AscmvcControllerFactoryInterface;
+use Ascmvc\EventSourcing\AggregateEventListenerInterface;
 use Ascmvc\EventSourcing\AggregateImmutableValueObject;
-use Ascmvc\EventSourcing\EventDispatcher;
-use Ascmvc\EventSourcing\EventLogger;
-use Ascmvc\EventSourcing\Event\AggregateEvent;
+use Ascmvc\EventSourcing\AggregateRootController;
 use Ascmvc\EventSourcing\Event\Event;
+use Ascmvc\EventSourcing\EventDispatcher;
+use Ascmvc\EventSourcing\Event\AggregateEvent;
 use Ascmvc\Mvc\AscmvcEvent;
-use Ascmvc\Mvc\Controller;
 use Pimple\Container;
+use Zend\Diactoros\Response;
 
-class ProductsController extends Controller implements AscmvcControllerFactoryInterface
+class ProductsController extends AggregateRootController implements AggregateEventListenerInterface
 {
     const READ_REQUESTED =  'products_read_received';
 
@@ -27,64 +26,72 @@ class ProductsController extends Controller implements AscmvcControllerFactoryIn
 
     const DELETE_REQUESTED = 'products_delete_received';
 
-    const READ_COMPLETED = 'products_read_completed';
+    // Define the Aggregate's invokable listeners.
+    protected $aggregateListenerNames = [
+        ProductsController::READ_REQUESTED => ProductsReadModel::class,
+        ProductsController::CREATE_REQUESTED => ProductsPolicy::class,
+        ProductsController::UPDATE_REQUESTED => ProductsPolicy::class,
+        ProductsController::DELETE_REQUESTED => ProductsPolicy::class,
+    ];
 
-    const CREATE_COMPLETED = 'products_create_completed';
-
-    const UPDATE_COMPLETED = 'products_update_completed';
-
-    const DELETE_COMPLETED = 'products_delete_completed';
-
-
-    public static function factory(array &$baseConfig, EventDispatcher &$eventDispatcher, Container &$serviceManager, &$viewObject)
+    // This controller MUST implement the Ascmvc\AscmvcControllerFactoryInterface interface
+    // if you wish to enable this factory method.
+    /*public static function factory(array &$baseConfig, EventDispatcher &$eventDispatcher, Container &$serviceManager, &$viewObject)
     {
-        // Setting the identifiers of this Event Dispatcher (event bus).
-        // Subscribing this controller (Aggregate Root) and the Event Sourcing Logger.
+        // It is possible to override the default identifiers for this Aggregate Root
+        // (event notified aggregates).
         $eventDispatcher->setIdentifiers(
             [
                 ProductsController::class,
                 EventLogger::class,
+                SomeClass::class,
             ]
         );
 
-        $productsReadModel = ProductsReadModel::getInstance($eventDispatcher);
+        // Manually attach invokable listeners if needed
+        $someReadModel = SomeReadModel::getInstance($eventDispatcher);
 
         $eventDispatcher->attach(
             ProductsController::READ_REQUESTED,
-            [$productsReadModel, 'onEvent']
+            $someReadModel
         );
 
-        $productsPolicy = ProductsPolicy::getInstance($eventDispatcher);
+        $somePolicy = ProductsPolicy::getInstance($eventDispatcher);
 
+        // If there are many listeners to attach, one may use a
+        // Listener Aggregate that implements the \Zend\EventManager\ListenerAggregateInterface
+        // instead of attaching them one by one.
         $eventDispatcher->attach(
             ProductsController::CREATE_REQUESTED,
-            [$productsPolicy, 'onEvent']
+            $somePolicy
         );
 
         $eventDispatcher->attach(
             ProductsController::UPDATE_REQUESTED,
-            [$productsPolicy, 'onEvent']
+            $somePolicy
         );
 
         $eventDispatcher->attach(
             ProductsController::DELETE_REQUESTED,
-            [$productsPolicy, 'onEvent']
+            $somePolicy
         );
 
+        // Instantiate an instance of this controller
         $controller = new ProductsController($baseConfig, $eventDispatcher);
 
+        // If needed, it is possible another listener method to the shared event manager's
+        // corresponding identifier (see above).
         $sharedEventManager = $eventDispatcher->getSharedManager();
 
-        // Attaching this controller's listener method to the shared event manager's
-        // corresponding identifier (see above).
         $sharedEventManager->attach(
             ProductsController::class,
             '*',
-            [$controller, 'updatePostActionControllerOutput']
+            [$controller, 'someListenerMethod']
         );
 
+        // Return the controller to the Controller Manager.
         return $controller;
-    }
+    }*/
 
     /*public function onDispatch(AscmvcEvent $event)
     {
@@ -111,18 +118,30 @@ class ProductsController extends Controller implements AscmvcControllerFactoryIn
         $this->view['error'] = 0;
     }
 
-    protected function hydrateArray(Products $object)
+    /**
+     * Updates the Controller's output at the dispatch event if needed (listener method).
+     *
+     * @param AggregateEvent $event
+     */
+    public function onAggregateEvent(AggregateEvent $event)
     {
-        $array['id'] = $object->getId();
-        $array['name'] = $object->getName();
-        $array['price'] = $object->getPrice();
-        $array['description'] = $object->getDescription();
-        $array['image'] = $object->getImage();
+        if (!$event instanceof WriteProductsCompleted && !$event instanceof ReadProductsCompleted) {
+            return;
+        }
 
-        return $array;
+        $eventName = $event->getName();
+
+        $this->results = $event->getAggregateValueObject()->getProperties();
+
+        $this->params = $event->getParams();
     }
 
-    public function indexAction($vars = null)
+    public function onEvent(Event $event)
+    {
+        return;
+    }
+
+    public function preIndexAction($vars = null)
     {
         if (isset($vars['get']['id'])) {
             $productArray['id'] = (string) $vars['get']['id'];
@@ -134,11 +153,20 @@ class ProductsController extends Controller implements AscmvcControllerFactoryIn
 
         $event = new AggregateEvent(
             $aggregateValueObject,
-            ProductsController::class,
+            $this->aggregateRootName,
             ProductsController::READ_REQUESTED
         );
 
         $this->eventDispatcher->dispatch($event);
+    }
+
+    public function indexAction($vars = null)
+    {
+        if (isset($this->results) && !empty($this->results)) {
+            $this->view['results'] = $this->results;
+        } else {
+            $this->view['results']['nodata'] = 'No results';
+        }
 
         $this->view['bodyjs'] = 1;
 
@@ -147,7 +175,7 @@ class ProductsController extends Controller implements AscmvcControllerFactoryIn
         return $this->view;
     }
 
-    public function addAction($vars)
+    public function preAddAction($vars)
     {
         if (!empty($vars['post'])) {
             // Would have to sanitize and filter the $_POST array.
@@ -166,6 +194,17 @@ class ProductsController extends Controller implements AscmvcControllerFactoryIn
 
             $this->eventDispatcher->dispatch($event);
         }
+    }
+
+    public function addAction($vars)
+    {
+        if (isset($this->params['saved'])) {
+            $this->view['saved'] = $this->params['saved'];
+        }
+
+        if (isset($this->params['error'])) {
+            $this->view['error'] = $this->params['error'];
+        }
 
         $this->view['bodyjs'] = 1;
 
@@ -174,7 +213,7 @@ class ProductsController extends Controller implements AscmvcControllerFactoryIn
         return $this->view;
     }
 
-    public function editAction($vars)
+    public function preEditAction($vars)
     {
         if (!empty($vars['post'])) {
             // Would have to sanitize and filter the $_POST array.
@@ -193,7 +232,7 @@ class ProductsController extends Controller implements AscmvcControllerFactoryIn
 
             $event = new AggregateEvent(
                 $aggregateValueObject,
-                ProductsController::class,
+                $this->aggregateRootName,
                 ProductsController::UPDATE_REQUESTED
             );
 
@@ -201,15 +240,35 @@ class ProductsController extends Controller implements AscmvcControllerFactoryIn
         } else {
             if (isset($vars['get']['id'])) {
                 $productArray['id'] = (string) $vars['get']['id'];
+
                 $aggregateValueObject = new AggregateImmutableValueObject($productArray);
+
                 $event = new AggregateEvent(
                     $aggregateValueObject,
-                    ProductsController::class,
+                    $this->aggregateRootName,
                     ProductsController::READ_REQUESTED
                 );
-            }
 
-            $this->eventDispatcher->dispatch($event);
+                $this->eventDispatcher->dispatch($event);
+            }
+        }
+    }
+
+    public function editAction($vars)
+    {
+        if (isset($this->params['saved'])) {
+            $this->view['saved'] = $this->params['saved'];
+        } else {
+            if (isset($this->results) && !empty($this->results)) {
+                $this->view['results'] = $this->results;
+            } else {
+                $response = new Response();
+                $response->getBody()->write('404 Not Found');
+                $response = $response
+                    ->withStatus(404);
+
+                return $response;
+            }
         }
 
         $this->view['bodyjs'] = 1;
@@ -219,10 +278,10 @@ class ProductsController extends Controller implements AscmvcControllerFactoryIn
         return $this->view;
     }
 
-    public function deleteAction($vars)
+    public function preDeleteAction($vars)
     {
-		// Sanitize and filter the $_GET array.
-		$productArray['id'] = (int) $vars['get']['id'];
+        // Sanitize and filter the $_GET array.
+        $productArray['id'] = (int) $vars['get']['id'];
 
         $aggregateValueObject = new AggregateImmutableValueObject($productArray);
 
@@ -233,65 +292,20 @@ class ProductsController extends Controller implements AscmvcControllerFactoryIn
         );
 
         $this->eventDispatcher->dispatch($event);
+    }
+
+    public function deleteAction($vars)
+    {
+        if (isset($this->params['saved'])) {
+            $this->view['saved'] = $this->params['saved'];
+        }
+
+        if (isset($this->params['error'])) {
+            $this->view['error'] = $this->params['error'];
+        }
 		
 		$this->view['templatefile'] = 'products_delete';
         
         return $this->view;
-    }
-
-    /**
-     * Updates the Controller's output at the dispatch event if needed (listener method).
-     *
-     * @param Event $event
-     */
-    public function updatePostActionControllerOutput(Event $event)
-    {
-        if (!$event instanceof WriteProductsCompleted && !$event instanceof ReadProductsCompleted) {
-            return;
-        }
-
-        $app = $event->getApplication();
-
-        $eventName = $event->getName();
-
-        $results = $event->getAggregateValueObject()->getProperties();
-
-        $params = $event->getParams();
-
-        $controllerOutput = $app->getControllerOutput();
-
-        if ($eventName === ProductsController::READ_COMPLETED) {
-            if (!empty($results)) {
-                if (is_object($results)) {
-                    $results = [$this->hydrateArray($results)];
-                } elseif (is_array($results)) {
-                    for ($i = 0; $i < count($results); $i++) {
-                        $results[$i] = $this->hydrateArray($results[$i]);
-                    }
-                }
-
-                $output = [];
-
-                $output['results'] = $results;
-
-                if (is_null($controllerOutput)) {
-                    $controllerOutput = $output;
-                } else {
-                    $controllerOutput = array_merge($output, $controllerOutput);
-                }
-            }
-        } else {
-            if (!empty($params)) {
-                $output['saved'] = $params['saved'];
-
-                if (is_null($controllerOutput)) {
-                    $controllerOutput = $output;
-                } else {
-                    $controllerOutput = array_merge($output, $controllerOutput);
-                }
-            }
-        }
-
-        $app->setControllerOutput($controllerOutput);
     }
 }
