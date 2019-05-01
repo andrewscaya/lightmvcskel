@@ -48,12 +48,32 @@ class ProductsController extends AggregateRootController implements AggregateEve
             ]
         );
 
-        // Manually attach an invokable listener if needed
+        // Manually attach invokable listeners if needed
         $someReadModel = SomeReadModel::getInstance($eventDispatcher);
 
         $eventDispatcher->attach(
             ProductsController::READ_REQUESTED,
             $someReadModel
+        );
+
+        $somePolicy = ProductsPolicy::getInstance($eventDispatcher);
+
+        // If there are many listeners to attach, one may use a
+        // Listener Aggregate that implements the \Zend\EventManager\ListenerAggregateInterface
+        // instead of attaching them one by one.
+        $eventDispatcher->attach(
+            ProductsController::CREATE_REQUESTED,
+            $somePolicy
+        );
+
+        $eventDispatcher->attach(
+            ProductsController::UPDATE_REQUESTED,
+            $somePolicy
+        );
+
+        $eventDispatcher->attach(
+            ProductsController::DELETE_REQUESTED,
+            $somePolicy
         );
 
         // Instantiate an instance of this controller
@@ -66,7 +86,7 @@ class ProductsController extends AggregateRootController implements AggregateEve
         $sharedEventManager->attach(
             ProductsController::class,
             '*',
-            [$controller, 'updatePostActionControllerOutput']
+            [$controller, 'someListenerMethod']
         );
 
         // Return the controller to the Controller Manager.
