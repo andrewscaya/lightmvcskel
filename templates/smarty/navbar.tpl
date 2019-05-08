@@ -13,19 +13,9 @@
                 </div>
                 <div id="navbar" class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
-                        {foreach from=$view.links key=name item=link}
-                            <li><a href="{$link}">{$name}</a></li>
+                        {foreach from=$view.links key=name item=value}
+                            <li><a href="{$value}">{$name}</a></li>
                         {/foreach}
-                       <!-- <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Main Menu <span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                        {foreach from=$view.navMenu key=navMenuEntry item=navMenuLink}
-                            <li class="dropdown-header">Menu</li>
-                            <li><a href="{$navMenuLink}">{$navMenuEntry}</a></li>
-                            <li role="separator" class="divider"></li>
-                        {/foreach}
-                        </ul>
-                        </li> -->
                     </ul>
                 </div>
             </div>

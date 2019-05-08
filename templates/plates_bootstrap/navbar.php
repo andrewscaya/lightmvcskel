@@ -16,16 +16,6 @@
                         <?php foreach($view['links'] as $key => $value): ?>
                             <li><?php echo '<a href="' . $value . '">' . $key . '</a>' ?></li>
                         <?php endforeach; ?>
-                       <!-- <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Main Menu <span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                        <?php foreach($view['navMenu'] as $key => $value): ?>
-                            <li class="dropdown-header">Menu</li>
-                            <li><?php echo '<a href="' . $value . '">' . $key . '</a>' ?></li>
-                            <li role="separator" class="divider"></li>
-                        <?php endforeach; ?>
-                        </ul>
-                        </li> -->
                     </ul>
                 </div>
             </div>
