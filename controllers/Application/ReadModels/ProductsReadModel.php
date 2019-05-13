@@ -3,8 +3,6 @@
 namespace Application\ReadModels;
 
 use Application\Events\ReadProductsCompleted;
-use Application\Models\Entity\Products;
-use Application\Models\Traits\DoctrineTrait;
 use Ascmvc\EventSourcing\AggregateImmutableValueObject;
 use Ascmvc\EventSourcing\AggregateReadModel;
 use Ascmvc\EventSourcing\CommandRunner;
@@ -16,28 +14,16 @@ class ProductsReadModel extends AggregateReadModel
 {
     const READ_COMPLETED = 'products_read_completed';
 
-    use DoctrineTrait;
-
-    protected $id;
-
-    protected $products;
-
-    protected $productsRepository;
-
     protected $commandRunner;
 
-    protected function __construct(EventDispatcher $eventDispatcher, Products $products)
+    protected function __construct(EventDispatcher $eventDispatcher)
     {
         parent::__construct($eventDispatcher);
-
-        $this->products = $products;
     }
 
     public static function getInstance(EventDispatcher $eventDispatcher)
     {
-        $productsEntity = new Products();
-
-        return new self($eventDispatcher, $productsEntity);
+        return new self($eventDispatcher);
     }
 
     public function __invoke(AggregateEvent $event)
