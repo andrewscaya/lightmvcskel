@@ -1,4 +1,4 @@
-# [![LightMVC Banner](public/img/lightmvc_logo.png)](https://lightmvcframework.net/)
+# [![LightMVC Banner](https://github.com/lightmvc/lightmvcskel/raw/master/public/img/lightmvc_logo.png)](https://lightmvcframework.net/)
 # LightMVC Framework Skeleton Application
 
 https://lightmvcframework.net
