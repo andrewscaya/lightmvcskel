@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a6c8d7271912650cb3c8beab35d0d278",
+    "content-hash": "c242835c467cd4ee25d979b474e03d52",
     "packages": [
         {
             "name": "atlas/mapper",
@@ -1081,16 +1081,16 @@
         },
         {
             "name": "lightmvc/ascmvc",
-            "version": "3.1.1",
+            "version": "3.1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/lightmvc/ascmvc.git",
-                "reference": "231251b724156c1726d8b6d4ae62f47801d65d95"
+                "reference": "aefe012eec6426a1a4539c9ed9b205c301672635"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/lightmvc/ascmvc/zipball/231251b724156c1726d8b6d4ae62f47801d65d95",
-                "reference": "231251b724156c1726d8b6d4ae62f47801d65d95",
+                "url": "https://api.github.com/repos/lightmvc/ascmvc/zipball/aefe012eec6426a1a4539c9ed9b205c301672635",
+                "reference": "aefe012eec6426a1a4539c9ed9b205c301672635",
                 "shasum": ""
             },
             "require": {
@@ -1150,7 +1150,7 @@
                 "mvc",
                 "swoole"
             ],
-            "time": "2019-05-08T20:40:37+00:00"
+            "time": "2019-05-13T21:02:08+00:00"
         },
         {
             "name": "nikic/fast-route",

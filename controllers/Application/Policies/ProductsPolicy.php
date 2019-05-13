@@ -4,7 +4,6 @@ namespace Application\Policies;
 
 use Application\Controllers\ProductsController;
 use Application\Events\WriteProductsCompleted;
-use Application\Models\Traits\DoctrineTrait;
 use Ascmvc\EventSourcing\AggregateImmutableValueObject;
 use Ascmvc\EventSourcing\AggregatePolicy;
 use Ascmvc\EventSourcing\CommandRunner;
@@ -19,14 +18,6 @@ class ProductsPolicy extends AggregatePolicy
     const UPDATE_COMPLETED = 'products_update_completed';
 
     const DELETE_COMPLETED = 'products_delete_completed';
-
-    use DoctrineTrait;
-
-    protected $properties;
-
-    protected $products;
-
-    protected $productsRepository;
 
     protected $commandRunner;
 
