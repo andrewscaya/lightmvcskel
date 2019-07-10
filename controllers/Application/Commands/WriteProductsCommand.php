@@ -53,7 +53,7 @@ class WriteProductsCommand extends ProductsCommand
         $values = [];
 
         try {
-            if ($name ===   'create') {
+            if ($name === 'create') {
                 $productsRepository->save($args);
             } elseif ($name === 'update') {
                 $products = $entityManager->find(Products::class, $args['id']);

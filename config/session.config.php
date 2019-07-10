@@ -16,8 +16,12 @@ $baseConfig['session'] = [
     ],
     'session_name' => 'PHPSESSION',
     'session_path' => '/',
+    'session_domain' => '',
+    'session_secure' => false,
+    'session_httponly' => false,
     'session_id_length' => 32,
     'session_id_type' => 1,
     'session_storage_prefix' => 'ascmvc',
-    'session_expire' => 60 * 30, // 30 minutes
+    'session_token_regeneration' => 60 * 30, // 30 minutes
+    'session_expire' => 60 * 60, // 60 minutes
 ];
