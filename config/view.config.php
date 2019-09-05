@@ -16,8 +16,9 @@ $baseConfig['view'] = [
     'lightmvc_logo_large' => $baseConfig['URLBASEADDR'] . 'img/lightmvc_logo_large.png',
     'favicon' => $baseConfig['URLBASEADDR'] . 'favicon.ico',
     'appname' => $baseConfig['appName'],
-    'title' => "Skeleton Application",
+    'title' => 'Skeleton Application',
     'author' => 'Andrew Caya',
+    'email' => 'admin@localdomain.local',
     'description' => 'Small CRUD application',
     'css' =>
         [
