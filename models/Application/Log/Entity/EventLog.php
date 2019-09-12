@@ -6,7 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity("Application\Log\Entity\EventLog")
- * @ORM\Entity(repositoryClass="Application\Models\Repository\EventLogRepository")
+ * @ORM\Entity(repositoryClass="Application\Log\Repository\EventLogRepository")
  * @ORM\Table("eventlog")
  */
 class EventLog
