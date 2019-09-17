@@ -138,7 +138,7 @@ $http->on("request", function ($request, $response) use ($static) {
     try {
         $sessionManager->start();
     } catch (\Throwable $exception){
-        var_dump($exception);
+        die($exception->getMessage());
     }
 
     $app->setSessionManager($sessionManager);
