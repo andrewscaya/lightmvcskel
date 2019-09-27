@@ -44,7 +44,7 @@ $sessionManager = \Ascmvc\Session\SessionManager::getSessionManager(null, null, 
 try {
     $sessionManager->start();
 } catch (\Throwable $exception){
-    var_dump($exception);
+    die($exception->getMessage());
 }
 
 $app->setSessionManager($sessionManager);
