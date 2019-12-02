@@ -20,7 +20,7 @@
     ],
     "require": {
         "php": "^7.2",
-        "lightmvc/ascmvc": "3.2.2"
+        "lightmvc/ascmvc": "3.2.3"
     },
     "require-dev": {
         "phpunit/phpunit": "^4.8",
