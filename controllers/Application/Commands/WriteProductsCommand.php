@@ -84,5 +84,7 @@ class WriteProductsCommand extends ProductsCommand
         $outputValues = serialize($values);
 
         $output->writeln($outputValues);
+
+        return 0;
     }
 }
