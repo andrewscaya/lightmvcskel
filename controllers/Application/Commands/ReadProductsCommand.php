@@ -72,5 +72,7 @@ class ReadProductsCommand extends ProductsCommand
         }
 
         $output->writeln($outputValues);
+
+        return 0;
     }
 }
