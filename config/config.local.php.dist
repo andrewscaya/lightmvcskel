@@ -28,6 +28,11 @@ $baseConfig['doctrine']['ORM']['dem1'] = [
     'dbname'   => 'DATABASE',
 ];*/
 
+$baseConfig['database'] = [
+    'read_conn_name' => 'dem1',
+    'write_conn_name' => 'dem1',
+];
+
 // Required configuration
 require 'events.config.php';
 

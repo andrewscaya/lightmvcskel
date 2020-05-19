@@ -37,7 +37,7 @@ class WriteProductsCommand extends ProductsCommand
     {
         $name = $input->getArgument('execute');
 
-        $connName = $this->getWebapp()->getBaseConfig()['events']['read_conn_name'];
+        $connName = $this->getWebapp()->getBaseConfig()['database']['read_conn_name'];
 
         $entityManager = $this->getWebapp()->getServiceManager()[$connName];
 
