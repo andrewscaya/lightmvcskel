@@ -4,7 +4,7 @@ namespace Specialmodule\Controllers;
 
 use Ascmvc\Mvc\AscmvcEvent;
 use Ascmvc\Mvc\Controller;
-use Zend\Diactoros\Response\JsonResponse;
+use Laminas\Diactoros\Response\JsonResponse;
 
 class IndexController extends Controller
 {

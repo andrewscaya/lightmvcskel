@@ -14,7 +14,7 @@ use Ascmvc\EventSourcing\EventDispatcher;
 use Ascmvc\EventSourcing\Event\AggregateEvent;
 use Ascmvc\Mvc\AscmvcEvent;
 use Pimple\Container;
-use Zend\Diactoros\Response;
+use Laminas\Diactoros\Response;
 
 class ProductsController extends AggregateRootController implements AggregateEventListenerInterface
 {
@@ -59,7 +59,7 @@ class ProductsController extends AggregateRootController implements AggregateEve
         $somePolicy = ProductsPolicy::getInstance($eventDispatcher);
 
         // If there are many listeners to attach, one may use a
-        // Listener Aggregate that implements the \Zend\EventManager\ListenerAggregateInterface
+        // Listener Aggregate that implements the \Laminas\EventManager\ListenerAggregateInterface
         // instead of attaching them one by one.
         $eventDispatcher->attach(
             ProductsController::CREATE_REQUESTED,
