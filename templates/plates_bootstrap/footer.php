@@ -34,7 +34,7 @@
 <!-- footer -->
 <footer class="w-full bg-white px-6 border-t">
     <div class="mx-auto max-w-xl py-6 flex flex-wrap md:flex-no-wrap justify-between items-center text-sm">
-        &copy;2019 Foreach Code Factory. All rights reserved.
+        &copy;2020 Foreach Code Factory. All rights reserved.
         <div class="pt-4 md:p-0 text-center md:text-right text-xs">
             <a href="#" class="text-black no-underline hover:underline">Privacy Policy</a>
             <a href="#" class="text-black no-underline hover:underline ml-4">Terms &amp; Conditions</a>

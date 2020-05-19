@@ -51,17 +51,26 @@
         <div class="max-w-xl mx-auto flex flex-wrap">
 
             <div class="w-full md:w-1/2 flex flex-wrap">
-                <div class="w-full md:w-1/2">
-                    <img src="{$view.urlbaseaddr}img/zend-framework.jpg" class="w-full h-auto" />
+                <div class="w-full md:w-1/3 p-2">
                 </div>
-                <div class="w-full md:w-1/2">
+                <div class="w-full md:w-1/3">
                     <img src="{$view.urlbaseaddr}img/symfony.png" class="w-full h-auto" />
                 </div>
-                <div class="w-full md:w-1/2">
+                <div class="w-full md:w-1/3 p-2">
+                </div>
+                <div class="w-full md:w-1/3 p-2">
+                </div>
+                <div class="w-full md:w-1/3">
+                    <img src="{$view.urlbaseaddr}img/laminas-logo.svg" class="w-full h-auto" />
+                </div>
+                <div class="w-full md:w-1/3 p-2">
+                </div>
+                <div class="w-full md:w-1/3 p-2">
+                </div>
+                <div class="w-full md:w-1/3">
                     <img src="{$view.urlbaseaddr}img/swoole.png" class="w-full h-auto" />
                 </div>
-                <div class="w-full md:w-1/2">
-                    <img src="{$view.urlbaseaddr}img/expressive.png" class="w-full h-auto" />
+                <div class="w-full md:w-1/3 p-2">
                 </div>
             </div>
 
@@ -69,7 +78,7 @@
                 <h3>
                     Build applications using PSR-15 compliant middleware and PSR-7 compliant HTTP messages.
                 </h3>
-                <p class="mb-5">Built upon proven technologies like Zend Diactoros, Zend Stratigility, and Zend EventManager!</p>
+                <p class="mb-5">Built upon proven technologies like Laminas Diactoros, Laminas Stratigility, and Laminas EventManager!</p>
                 <p class="mb-8">Many great technologies, like Pimple, FastRoute, Plates, and Whoops come together to become the LightMVC Framework!</p>
                 <p class="mb-8">And, let's not forget these great-looking templates created with Bootstrap and Tailwind CSS!</p>
                 <a href="{$view.urlbaseaddr}products/index" class="inline-block bg-black text-white text-3xl px-4 py-3 no-underline">Browse our products</a>
