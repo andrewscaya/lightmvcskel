@@ -7,93 +7,91 @@
     {include file='head.tpl'}
 {/if}
 
-  <body>
-  {include file='navbar.tpl'}
+<body>
+{include file='navbar.tpl'}
+
+<main role="main">
 
     <div class="container">
-      <div class="row">
-        <div id="pageBodyProducts">
-            <h1>Products page</h1>
+        <div id="pageBodyProducts"class="row">
+            <h1 class="h1 pt-2 pb-4">Products page</h1>
             <div class="table-responsive">
-              <table class="table table-striped">
-                <thead>
-                  <tr>
-                      <th>ID</th>
-                      <th>Name</th>
-                      <th>Price</th>
-                      <th>Description</th>
-                      <th>Image</th>
-                      <th>Options</th>
-                  </tr>
-                </thead>
-                <tbody>
-                {if isset($view.results.nodata)}
-                <tr>
-                    <td>{$view.results.nodata}</td>
-                </tr>
-                {else}
-                  {foreach from=$view.results item=product}
+                <table class="table table-striped">
+                    <thead class="thead-dark">
                     <tr>
-                        <td>{$product.id}</td>
-                        <td>{$product.name}</td>
-                        <td>{$product.price}</td>
-                        <td>{$product.description}</td>
-                        <td>{$product.image}</td>
-                        <td>
-                            <a href="{$view.urlbaseaddr}products/edit/{$product.id}">Modify</a>
-                        </td>
-                        <td>
-                            <a href="{$view.urlbaseaddr}products/delete/{$product.id}">Delete</a>
-                        </td>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Price</th>
+                        <th>Description</th>
+                        <th>Image</th>
+                        <th>Actions</th>
+                        <th></th>
                     </tr>
-                  {/foreach}
-                {/if}
-                </tbody>
-              </table>
+                    </thead>
+                    <tbody>
+                    {if isset($view.results.nodata)}
+                        <tr>
+                            <td>{$view.results.nodata}</td>
+                        </tr>
+                    {else}
+                        {foreach from=$view.results item=product}
+                            <tr>
+                                <td>{$product.id}</td>
+                                <td>{$product.name}</td>
+                                <td>{$product.price}</td>
+                                <td>{$product.description}</td>
+                                <td>{$product.image}</td>
+                                <td>
+                                    <a href="{$view.urlbaseaddr}products/edit/{$product.id}">Modify</a>
+                                </td>
+                                <td>
+                                    <a href="{$view.urlbaseaddr}products/delete/{$product.id}">Delete</a>
+                                </td>
+                            </tr>
+                        {/foreach}
+                    {/if}
+                    </tbody>
+                </table>
             </div>
-            <p><a href="{$view.urlbaseaddr}products/add" class="mt-6 inline-block bg-white text-black no-underline px-4 py-3 shadow-lg">Add new product</a></p>
-        </div> <!-- END pageBody -->
-      </div>
+            <p class="pb-5"><a href="{$view.urlbaseaddr}products/add" class="btn btn-light mt-6 inline-block bg-white text-black no-underline px-4 py-3 shadow-lg">Add new product</a></p>
+        </div> <!-- END pageBodyProducts -->
     </div>
 
     <!-- feature -->
-    <div class="w-full bg-yellow text-black">
-      <div class="text-center">
-          <p><br /></p>
-          <h2 class="leading-normal mb-6 text-grey-darkest"></h2>
-          <h3></h3>
-          <p><br /></p>
-      </div>
+    <div class="bg-yellow text-black">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12"><p><br /></p></div>
+            </div>
+        </div>
     </div>
     <!-- /feature -->
 
     <!-- content -->
-    <div class="w-full px-6 py-12 bg-white">
-      <div class="max-w-xl mx-auto flex flex-wrap">
-
-          <div class="w-full md:w-1/2 flex flex-wrap">
-          </div>
-
-          <div class="w-full md:w-1/2 p-2 md:px-6">
-              <h3>
-              </h3>
-              <p class="mb-5"></p>
-              <p class="mb-8"></p>
-              <p class="mb-8"></p>
-          </div>
-
-      </div>
+    <div class="bg-white">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-1"></div>
+                <div class="col-md-4"></div>
+                <div class="col-md-1"></div>
+                <div class="col-md-5"></div>
+                <div class="col-md-1"></div>
+            </div>
+        </div>
     </div>
-    <!-- /content -->
 
-  {include file='footer.tpl'}
+</main> <!-- /content -->
 
-  {if $view.bodyjs == 1}
-      {include file='bodyjs.tpl'}
-  {/if}
+<div class="container-footer">
+    {include file='footer.tpl'}
+</div>
 
-    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <script src="{$view.urlbaseaddr}js/ie10-viewport-bug-workaround.js"></script>
-    
-  </body>
+{if $view.bodyjs == 1}
+    {include file='bodyjs.tpl'}
+{/if}
+
+<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+<script src="{$view.urlbaseaddr}js/ie10-viewport-bug-workaround.js"></script>
+
+</body>
 </html>
