@@ -45,4 +45,4 @@ require 'view.config.php';
 require 'session.config.php';
 
 // Optional configuration
-include 'middleware.config.php';
+require 'middleware.config.php';

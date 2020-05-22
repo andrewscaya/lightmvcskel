@@ -13,7 +13,8 @@ require 'routes.config.php';
 
 require 'view.config.php';
 
-// Optional configuration
-include 'middleware.config.php';
+require 'session.config.php';
 
-include 'session.config.php';
+// Optional configuration
+require 'middleware.config.php';
+
