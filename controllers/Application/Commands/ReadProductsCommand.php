@@ -32,7 +32,7 @@ class ReadProductsCommand extends ProductsCommand
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $connName = $this->getWebapp()->getBaseConfig()['events']['read_conn_name'];
+        $connName = $this->getWebapp()->getBaseConfig()['database']['read_conn_name'];
 
         $entityManager = $this->getWebapp()->getServiceManager()[$connName];
 

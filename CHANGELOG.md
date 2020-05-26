@@ -1,5 +1,13 @@
 # CHANGELOG
 
+## 4.0.0 (2020-05-26)
+
+- Migrates to Laminas and updates the project's dependencies.
+
+- Updates all of the templates (Skeleton Application).
+
+- Updates the documentation.
+
 ## 3.3.0 (2019-12-03)
 
 - Fixes a minor issue with the skeleton application's commands.

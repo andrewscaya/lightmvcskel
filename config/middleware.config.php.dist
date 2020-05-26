@@ -2,7 +2,7 @@
 
 $baseConfig['middleware'] = [
     '/foo' => function ($req, $handler) {
-        $response = new \Zend\Diactoros\Response();
+        $response = new \Laminas\Diactoros\Response();
         $response->getBody()->write('FOO!');
 
         return $response;
@@ -12,7 +12,7 @@ $baseConfig['middleware'] = [
             return $handler->handle($req);
         }
 
-        $response = new \Zend\Diactoros\Response();
+        $response = new \Laminas\Diactoros\Response();
         $response->getBody()->write('Hello world!');
 
         return $response;
