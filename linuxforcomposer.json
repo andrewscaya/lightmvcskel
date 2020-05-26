@@ -24,7 +24,6 @@
                     "ln -s tempo/lightmvcskel/public www",
                     "/etc/init.d/mysql start",
                     "sleep 5",
-                    "composer self-update",
                     "mysql -uroot -e \"CREATE DATABASE lightmvc;\"",
                     "mysql -uroot -e \"CREATE USER 'lightmvcu'@'localhost' IDENTIFIED BY 'testpass';\"",
                     "mysql -uroot -e \"GRANT ALL PRIVILEGES ON lightmvc.* TO 'lightmvcu'@'localhost'\"",
