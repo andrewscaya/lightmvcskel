@@ -5,16 +5,17 @@
         "image": {
             "linuxforcomposer": {
                 "php-versions": [
-                    "7.4",
-                    "7.3",
-                    "7.2"
+                    "8.0",
+                    "8.1",
+                    "8.2"
+
                 ],
                 "script": [
                     "composer self-update",
                     "/srv/tempo/lightmvcskel/data/lfphpdevuser.bash",
                     "cd /srv/tempo/lightmvcskel",
                     "chmod -R 777 cache/ logs/ templates_c/",
-                    "composer update",
+                    "rm -f composer.lock && composer install",
                     "cp -f config/config.local.php.dist config/config.local.php",
                     "sed -i 's/USERNAME/lightmvcu/g' config/config.local.php",
                     "sed -i 's/PASSWORD/testpass/g' config/config.local.php",
@@ -50,9 +51,9 @@
             },
             "ports": {
                 "port1": [
-                    "7474:80",
-                    "7373:80",
-                    "7272:80"
+                    "8080:80",
+                    "8181:80",
+                    "8282:80"
                 ]
             },
             "volumes": {
