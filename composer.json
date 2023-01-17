@@ -20,7 +20,7 @@
     ],
     "require": {
         "php": ">=8.0 <8.3",
-        "lightmvc/ascmvc": "5.0.0"
+        "lightmvc/ascmvc": "5.0.1"
     },
     "require-dev": {
         "linuxforphp/linuxforcomposer": "^2.0"
